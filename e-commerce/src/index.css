@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reusable */
+.container {
+  @apply max-w-7xl mx-auto px-4;
+}
+.btn {
+  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium transition;
+}
+.btn-primary { @apply bg-brand text-white hover:bg-brand-dark; }
+.btn-outline { @apply border border-gray-300 hover:bg-gray-50; }
+.badge { @apply text-xs px-2 py-0.5 rounded bg-gray-100; }
