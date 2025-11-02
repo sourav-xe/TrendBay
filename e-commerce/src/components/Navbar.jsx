@@ -60,12 +60,7 @@ export default function Navbar() {
                 placeholder="Search TrendBay"
                 className="w-[280px] text-sm outline-none placeholder:text-gray-400 px-2 py-2 bg-transparent"
               />
-              <button
-                className="px-3 rounded-r-full bg-gray-900 hover:bg-black text-white transition"
-                aria-label="search"
-              >
-                <Search size={16} />
-              </button>
+             
             </div>
           </div>
 

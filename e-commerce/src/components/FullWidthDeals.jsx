@@ -12,42 +12,42 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const deals = [
   {
-    img: "https://images.unsplash.com/photo-1548445929-2f4b9b7a8dfd?auto=format&fit=crop&w=1600&q=80",
+    img: "https://images.unsplash.com/photo-1649109670237-31fcefbac2b6?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQ5fHxtb2RlbHN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
     overline: "USE CODE: CARGOS100 • FLAT ₹100 OFF",
     titleTop: "THE CARGO",
     titleBottom: "CULTURE",
     align: "left",
   },
   {
-    img: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1600&q=80",
+    img: "https://images.unsplash.com/photo-1562572159-4efc207f5aff?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fG1vZGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
     overline: "DRIP-CODED SHIRTS",
-    titleTop: "all new",
-    titleBottom: "Shirts",
-    align: "center",
+    titleTop: "All TIME",
+    titleBottom: " FAVOURITES",
+    align: "left",
   },
   {
-    img: "https://images.unsplash.com/photo-1592875206024-c2fafca205b2?auto=format&fit=crop&w=1600&q=80",
+    img: "https://plus.unsplash.com/premium_photo-1715876234545-88509db72eb3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTd8fG1vZGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
     overline: "DESIGNS OF THE WEEK",
     titleTop: "THE BOHO",
     titleBottom: "REVIVAL",
     align: "right",
   },
   {
-    img: "https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?auto=format&fit=crop&w=1600&q=80",
+    img: "https://images.unsplash.com/photo-1495385794356-15371f348c31?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTl8fG1vZGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
     overline: "WINTER SPECIALS",
     titleTop: "SWEATERS",
     titleBottom: "& JACKETS",
     align: "left",
   },
   {
-    img: "https://images.unsplash.com/photo-1542060748-10c28b62716f?auto=format&fit=crop&w=1600&q=80",
+    img: "https://plus.unsplash.com/premium_photo-1715876268461-7d85ee7b1452?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzN8fG1vZGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
     overline: "CO-ORD COLLECTION",
     titleTop: "COMFY",
     titleBottom: "CO-ORDS",
     align: "center",
   },
   {
-    img: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80",
+    img: "https://plus.unsplash.com/premium_photo-1672322565907-932e7554b1cc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjMxfHxtb2RlbHN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
     overline: "DENIM DAYS",
     titleTop: "JEANS",
     titleBottom: "UNDER ₹999",
@@ -89,7 +89,7 @@ export default function FullWidthDeals() {
       if (!hover && pagesData.length > 0) {
         setPage((p) => (p + 1) % pagesData.length);
       }
-    }, 4000);
+    }, 2000);
     return () => clearInterval(id);
   }, [hover, pagesData.length]);
 

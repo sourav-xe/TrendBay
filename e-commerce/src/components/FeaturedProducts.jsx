@@ -4,42 +4,44 @@ export default function FeaturedProducts() {
   const products = [
     {
       id: 1,
-      name: "Caramel Oversized Tee",
-      price: 599,
-      img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3f9a?auto=format&fit=crop&w=800&q=80",
+      name: "Black Oversized Coat",
+      price: 1599,
+      img: "https://images.unsplash.com/photo-1564485377539-4af72d1f6a2f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG1vZGVsfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
       colors: ["#e5732a", "#000000", "#6d6875"],
     },
     {
       id: 2,
-      name: "Grey Introvert Tee",
-      price: 599,
-      img: "https://images.unsplash.com/photo-1520974722053-5b86b7891f67?auto=format&fit=crop&w=800&q=80",
+      name: "Cream Bermuda Trase",
+      price: 899,
+      img: "https://plus.unsplash.com/premium_photo-1664464229692-44046bfd6b7d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fG1vZGVsfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
       colors: ["#4b4b4b", "#c4c4c4", "#1a1a1a"],
     },
     {
       id: 3,
-      name: "Pink Off-Road Tee",
-      price: 499,
-      img: "https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=800&q=80",
+      name: "Red  Mars-Jacket ",
+      price: 2499,
+      img: "https://images.unsplash.com/photo-1643622782660-30dedcd8d75a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjI2fHxjbG90aGVzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
       colors: ["#f7b6b6", "#ffe0e0", "#000000"],
     },
     {
       id: 4,
-      name: "Find Your Peace Tee",
-      price: 449,
-      img: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80",
+      name: "Lavender Raisy Jacket",
+      price: 1449,
+      img: "https://plus.unsplash.com/premium_photo-1667520043080-53dcca77e2aa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjV8fG1vZGVsfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
       colors: ["#101820", "#2ecc71", "#dcdcdc"],
     },
     {
       id: 5,
-      name: "Into The Wild Tee",
-      price: 449,
-      img: "https://images.unsplash.com/photo-1618354691620-22025db94cb3?auto=format&fit=crop&w=800&q=80",
+      name: "Trendy Combo Tee",
+      price: 699,
+      img: "https://images.unsplash.com/photo-1677759338040-7b51b3054852?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzE1fHxtb2RlbHN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
       colors: ["#ffffff", "#2e7d32", "#000000"],
     },
   ];
 
-  return (
+ return (
+  <>
+    {/* Product Section */}
     <section className="w-full bg-gradient-to-b from-white to-gray-50 py-14">
       <div className="max-w-[1600px] mx-auto px-6">
         <h2 className="text-center text-3xl md:text-4xl font-bold mb-10">
@@ -88,5 +90,18 @@ export default function FeaturedProducts() {
         </div>
       </div>
     </section>
-  );
+
+    {/* ✅ Trendy banner section */}
+    <section className="w-full mt-12">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0420/7073/7058/files/jpeg-optimizer_sc_widget_banner_updated.jpg"
+        alt="trendy banner"
+        className="w-full object-cover rounded-2xl shadow-md"
+      />
+    </section>
+
+    
+  </>
+);
+
 }

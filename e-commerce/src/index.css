@@ -12,3 +12,29 @@
 .btn-primary { @apply bg-brand text-white hover:bg-brand-dark; }
 .btn-outline { @apply border border-gray-300 hover:bg-gray-50; }
 .badge { @apply text-xs px-2 py-0.5 rounded bg-gray-100; }
+
+
+/* ===== Gold shimmer for text ===== */
+@keyframes gold-sweep {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Base gold gradient text (no animation) */
+.gold-text {
+  background: linear-gradient(90deg, #8d6e63, #d4af37, #ffd700, #d4af37, #8d6e63);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;               /* show gradient as text color */
+}
+
+/* Trigger animation only on hover (via .group) */
+.group:hover .gold-text {
+  animation: gold-sweep 1.2s linear infinite;
+}
+
+/* Make the “selected” item look stronger even when not hovered */
+.gold-strong {
+  filter: drop-shadow(0 0 6px rgba(218,165,32,.35));
+}

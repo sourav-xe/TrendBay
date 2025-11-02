@@ -9,6 +9,10 @@ export default {
       boxShadow: {
         card: "0 10px 30px -10px rgba(0,0,0,.15)",
       },
+    fontFamily: {
+      mona: ['"Mona Sans"', 'sans-serif'],
+    },
+  
     },
   },
   plugins: [],
