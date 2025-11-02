@@ -8,6 +8,7 @@ import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import NotFound from "./pages/NotFound";
+import Collection from "./pages/Collection"; // ← add import
 
 // NEW
 import Women from "./pages/Women";
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/collection/:slug" element={<Collection />} />
         </Routes>
       </main>
       <Footer />

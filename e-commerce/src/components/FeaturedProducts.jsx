@@ -37,7 +37,44 @@ export default function FeaturedProducts() {
       img: "https://images.unsplash.com/photo-1677759338040-7b51b3054852?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzE1fHxtb2RlbHN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
       colors: ["#ffffff", "#2e7d32", "#000000"],
     },
+     {
+      id: 6,
+      name: "Yellow black  Combo Hoas",
+      price: 699,
+      img: "https://images.unsplash.com/photo-1596993100471-c3905dafa78e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+      colors: ["#ffffff", "#2e7d32", "#000000"],
+    },
+       {
+      id: 7,
+      name: "Black Cover hat agent",
+      price: 699,
+      img: "https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDR8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+      colors: ["#ffffff", "#2e7d32", "#000000"],
+    },
+       {
+      id: 8,
+      name: "Trendy Combo Tee",
+      price: 699,
+      img: "https://images.unsplash.com/photo-1545291730-faff8ca1d4b0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTV8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+      colors: ["#ffffff", "#2e7d32", "#000000"],
+    },
+       {
+      id: 9,
+      name: "Fluffy Jacket asolt",
+      price: 1299,
+      img: "https://images.unsplash.com/photo-1632573801508-4ede5a46c4d8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTJ8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+      colors: ["#ffffff", "#2e7d32", "#000000"],
+    },
+       {
+      id: 10,
+      name: "Crop top white fashion",
+      price: 699,
+      img: "https://images.unsplash.com/photo-1609505848912-b7c3b8b4beda?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzZ8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+      colors: ["#ffffff", "#2e7d32", "#000000"],
+    },
   ];
+
+  
 
  return (
   <>

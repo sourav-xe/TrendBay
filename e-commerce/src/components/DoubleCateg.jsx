@@ -65,7 +65,7 @@ export default function HoverSwapShowcase() {
           </LeftWrap>
 
           {/* CENTER TEXT LIST */}
-         {/* CENTER TEXT LIST */}
+{/* CENTER TEXT LIST */}
 <ul className="flex flex-col items-center gap-3 md:gap-4">
   {items.map((it, i) => {
     const selected = i === active;
@@ -75,18 +75,22 @@ export default function HoverSwapShowcase() {
         <LabelTag
           to={it.to || undefined}
           className={`group text-center tracking-wide transition-all duration-300 text-xl md:text-3xl focus:outline-none ${
-            selected ? "scale-105" : ""
+            selected ? "scale-105" : "hover:scale-105"
           }`}
           onMouseEnter={() => setActive(i)}
           onFocus={() => setActive(i)}
           onClick={() => setActive(i)}
           aria-current={selected ? "true" : "false"}
         >
-          {/* GOLD text + shimmer on hover */}
           <span
-            className={`gold-text ${
-              selected ? "font-extrabold gold-strong" : "text-transparent"
-            }`}
+            className={`
+              transition-all duration-300
+              ${
+                selected
+                  ? "text-[#FFD700] font-extrabold" // active → golden
+                  : "text-black hover:text-[#FFD700]" // default black, hover → golden
+              }
+            `}
           >
             {it.label}
           </span>
@@ -95,6 +99,7 @@ export default function HoverSwapShowcase() {
     );
   })}
 </ul>
+
 
 
           {/* RIGHT IMAGE */}

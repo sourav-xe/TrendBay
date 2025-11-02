@@ -6,6 +6,7 @@ import FeaturedProducts from "../components/FeaturedProducts";
 import Categories from "../components/Categories";
 import BannerSlider from "../components/BannerSlider";
 import DoubleCateg from "../components/DoubleCateg";
+import FandomCarousel from "../components/FandomCarousel";
 
 export default function Home() {
   return (
@@ -67,6 +68,7 @@ export default function Home() {
       <Categories/>
       <BannerSlider  />
       <DoubleCateg/>
+      <FandomCarousel />
     </>
   );
 }
