@@ -1,53 +1,64 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import products from "../data/products";
-import { useStore } from "../store/Store";
+// src/data/products.js
+const BRANDS = ["Shein", "Zara", "H&M", "Only", "Roadster"];
+const CATEGORIES = [
+  "Dresses",
+  "Shirts, Tops & Tunics",
+  "Tshirts",
+  "Jeans & Jeggings",
+  "Trousers & Pants",
+];
 
-export default function Product() {
-  const { id } = useParams();
-  const { dispatch } = useStore();
-  const p = products.find(x => x.id === id);
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
-  if (!p) return <div className="container py-10">Product not found.</div>;
+export function makeProductsFor(slug) {
+  return Array.from({ length: 30 }).map((_, i) => {
+    const cat = CATEGORIES[i % CATEGORIES.length];
+    const brand = BRANDS[i % BRANDS.length];
+    const price = [449, 499, 549, 599, 649, 699, 749, 799, 899][i % 9];
+    const mrp = price + [300, 350, 400, 450][i % 4];
 
-  const discount = Math.round(((p.mrp - p.price) / p.mrp) * 100);
+    const img = `https://images.unsplash.com/photo-15${
+      (10 + i) % 99
+    }0${(i * 7) % 9}5${(i * 3) % 9}-?auto=format&fit=crop&w=1000&q=80&sig=${slug}-${i}`;
 
-  return (
-    <section className="container py-8 grid md:grid-cols-2 gap-8">
-      <div className="rounded-2xl overflow-hidden border bg-gray-50">
-        <img src={p.image} alt={p.title} className="w-full h-full object-cover" />
-      </div>
-
-      <div>
-        <h1 className="text-2xl font-bold">{p.brand}</h1>
-        <p className="text-gray-700">{p.title}</p>
-
-        <div className="flex items-center gap-2 mt-3">
-          <span className="text-2xl font-semibold">₹{p.price}</span>
-          <span className="text-sm line-through text-gray-400">₹{p.mrp}</span>
-          <span className="badge text-brand bg-pink-50">{discount}% OFF</span>
-        </div>
-
-        <div className="mt-5">
-          <h4 className="font-semibold mb-2">Select Size</h4>
-          <div className="flex flex-wrap gap-2">
-            {p.sizes.map(s => (
-              <button key={s} className="btn btn-outline px-3 py-1">{s}</button>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-6 flex gap-3">
-          <button onClick={() => dispatch({ type: "ADD_TO_CART", item: p })} className="btn btn-primary">
-            Add to cart
-          </button>
-          <button onClick={() => dispatch({ type: "ADD_WISHLIST", item: p })} className="btn btn-outline">
-            Wishlist
-          </button>
-        </div>
-
-        <p className="mt-6 text-sm text-gray-600">{p.description}</p>
-      </div>
-    </section>
-  );
+    return {
+      id: `${slug}-${i + 1}`,
+      slug,
+      title: `${cap(slug)} ${cat.split("&")[0]} ${i + 1}`,
+      brand,
+      category: cat,
+      gender: "Women",
+      price,
+      mrp,
+      image: img,
+      rating: 4 + ((i % 10) / 10),
+      sizes: ["S", "M", "L", "XL", "2XL"],
+      keyHighlights: {
+        Design: ["Graphic Print", "Solid", "Textured"][(i * 5) % 3],
+        Fit: ["Regular Fit", "Relaxed Fit", "Slim Fit"][i % 3],
+        Neck: ["Round Neck", "V-Neck", "Collared"][i % 3],
+        Material: ["Cotton", "Polyester", "Cotton Blend"][i % 3],
+        Occasion: cap(slug).replace("-", " "),
+        "Sleeve Style": ["Half Sleeve", "Full Sleeve", "Sleeveless"][i % 3],
+      },
+    };
+  });
 }
+
+const cache = new Map();
+export function getProductsFor(slug) {
+  if (!cache.has(slug)) cache.set(slug, makeProductsFor(slug));
+  return cache.get(slug);
+}
+export function getProductById(id) {
+  const slug = id.split("-").slice(0, -1).join("-");
+  return getProductsFor(slug).find((p) => p.id === id);
+}
+
+// 👇 ADD THIS so files that do "import products from '../data/products'" keep working
+const defaultExport = {
+  getProductsFor,
+  getProductById,
+  makeProductsFor,
+};
+export default defaultExport;

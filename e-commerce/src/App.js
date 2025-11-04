@@ -3,12 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import Shop from "./pages/Shop";       // keep for deep links (q/cat)
+import Shop from "./pages/Shop";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import NotFound from "./pages/NotFound";
 import Collection from "./pages/Collection"; // ← add import
+import ProductDetail from "./pages/ProductDetail";
 
 // NEW
 import Women from "./pages/Women";
@@ -26,12 +27,18 @@ export default function App() {
           <Route path="/men" element={<Men />} />
           <Route path="/trending" element={<Trending />} />
           {/* Keep these pages available */}
+            {/* when user clicks Casual / Streetwear / etc from HeroSlider */}
+            <Route path="/collection/:slug" element={<Shop />} />
+           {/* optional generic /shop */}
           <Route path="/shop" element={<Shop />} />
+
+           {/* product detail page you already use */}
           <Route path="/product/:id" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/collection/:slug" element={<Collection />} />
+          <Route path="/p/:id" element={<ProductDetail />} />
         </Routes>
       </main>
       <Footer />
