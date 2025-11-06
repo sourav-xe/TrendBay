@@ -1,39 +1,88 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function FandomCarousel() {
   // =======================
   // 🔧 EDIT HERE (sizes/look)
   // =======================
   const SETTINGS = {
-    CARD_HEIGHT_PX: null, // <-- Set to null to use aspect ratio
-    CARD_ASPECT: 5 / 6,   // <-- Match the image aspect ratio (500x600)
-    CARD_SCALE: 1.0,      // <-- Use full calculated width
-    BORDER_PX: 0,         // <-- Border removed
-    RADIUS_PX: 12,        // <-- Reduced radius, closer to screenshot
-    GAP_PX: 20,           // <-- Reduced gap, closer to screenshot
+    CARD_HEIGHT_PX: null,
+    CARD_ASPECT: 5 / 6,
+    CARD_SCALE: 1.0,
+    BORDER_PX: 0,
+    RADIUS_PX: 12,
+    GAP_PX: 20,
     AUTOPLAY_MS: 1600,
     TRANSITION_MS: 450,
     PEEK: { for1: 0.18, for2: 0.24, for3: 0.30 },
     SHADOW: "0 6px 20px rgba(0,0,0,0.08)",
   };
 
-  // ✅ de-duped + https for first image
+  // ✅ items with matching product ids (fandom-1..9)
   const items = useMemo(
     () => [
-      { id: "hp", name: "Harry Potter", tshirt: "https://images.bewakoof.com/uploads/grid/app/500x600-Fandom-Tile-Men-1757323393.jpg" },
-      { id: "peanuts", name: "Peanuts", tshirt: "https://images.bewakoof.com/uploads/grid/app/500x600-Fandom-Tile-men--2--1757581328.jpg" },
-      { id: "naruto", name: "Naruto", tshirt: "https://images.bewakoof.com/uploads/grid/app/SC-marvel-men-1738586657.jpg" },
-      { id: "marvel", name: "Marvel", tshirt: "https://images.bewakoof.com/uploads/grid/app/500x600-Fandom-Tile-Superman-Men-1753194940.jpg" },
-      { id: "nasa", name: "NASA", tshirt: "https://images.bewakoof.com/uploads/grid/app/SC-NASA-men-1738586659.jpg" },
-      { id: "garfield", name: "Garfield", tshirt: "https://images.bewakoof.com/uploads/grid/app/SC-garfield-men-1738586652.jpg" },
-      { id: "peanuts2", name: "Peanuts 2", tshirt: "https://images.bewakoof.com/uploads/grid/app/SC-peanuts-men-1738586855.jpg" },
-      { id: "dc", name: "DC", tshirt: "https://images.bewakoof.com/uploads/grid/app/SC-DC-men-1738586415.jpg" },
-      { id: "hp2", name: "Harry Potter 2", tshirt: "https://images.bewakoof.com/uploads/grid/app/SC-HP-men-1738586657.jpg" }, // kept only once
+      {
+        id: 1,
+        productId: "fandom-1",
+        name: "Harry Potter",
+        tshirt:
+          "https://images.bewakoof.com/uploads/grid/app/500x600-Fandom-Tile-Men-1757323393.jpg",
+      },
+      {
+        id: 2,
+        productId: "fandom-2",
+        name: "Peanuts",
+        tshirt:
+          "https://images.bewakoof.com/uploads/grid/app/500x600-Fandom-Tile-men--2--1757581328.jpg",
+      },
+      {
+        id: 3,
+        productId: "fandom-3",
+        name: "Naruto",
+        tshirt: "https://images.bewakoof.com/uploads/grid/app/SC-marvel-men-1738586657.jpg",
+      },
+      {
+        id: 4,
+        productId: "fandom-4",
+        name: "Marvel",
+        tshirt:
+          "https://images.bewakoof.com/uploads/grid/app/500x600-Fandom-Tile-Superman-Men-1753194940.jpg",
+      },
+      {
+        id: 5,
+        productId: "fandom-5",
+        name: "NASA",
+        tshirt: "https://images.bewakoof.com/uploads/grid/app/SC-NASA-men-1738586659.jpg",
+      },
+      {
+        id: 6,
+        productId: "fandom-6",
+        name: "Garfield",
+        tshirt: "https://images.bewakoof.com/uploads/grid/app/SC-garfield-men-1738586652.jpg",
+      },
+      {
+        id: 7,
+        productId: "fandom-7",
+        name: "Peanuts 2",
+        tshirt: "https://images.bewakoof.com/uploads/grid/app/SC-peanuts-men-1738586855.jpg",
+      },
+      {
+        id: 8,
+        productId: "fandom-8",
+        name: "DC",
+        tshirt: "https://images.bewakoof.com/uploads/grid/app/SC-DC-men-1738586415.jpg",
+      },
+      {
+        id: 9,
+        productId: "fandom-9",
+        name: "Harry Potter 2",
+        tshirt: "https://images.bewakoof.com/uploads/grid/app/SC-HP-men-1738586657.jpg",
+      },
     ],
     []
   );
 
-  // clone edges for seamless loop (needed for wrap on scroll/drag/arrows)
+  // clone edges for seamless loop
   const loopItems = useMemo(
     () => [...items.slice(-3), ...items, ...items.slice(0, 3)],
     [items]
@@ -45,19 +94,21 @@ export default function FandomCarousel() {
   const [isAnimating, setIsAnimating] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
 
-  // drag/scroll helpers
   const dragStartX = useRef(0);
   const dragging = useRef(false);
   const lastWheelTs = useRef(0);
-  const wheelCooldownMs = 220; // throttle wheel→slide
+  const wheelCooldownMs = 220;
 
-  // compute card width so 3 full + peek are visible
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
       const perView = w < 640 ? 1 : w < 1024 ? 2 : 3;
       const peek =
-        perView >= 3 ? SETTINGS.PEEK.for3 : perView === 2 ? SETTINGS.PEEK.for2 : SETTINGS.PEEK.for1;
+        perView >= 3
+          ? SETTINGS.PEEK.for3
+          : perView === 2
+          ? SETTINGS.PEEK.for2
+          : SETTINGS.PEEK.for1;
 
       const gap = SETTINGS.GAP_PX;
       const el = containerRef.current;
@@ -72,9 +123,8 @@ export default function FandomCarousel() {
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
-  }, []); // Note: SETTINGS are constant, so no need to add them as dependencies
+  }, []);
 
-  // autoplay
   useEffect(() => {
     if (isPaused) return;
     const id = setInterval(() => {
@@ -84,7 +134,6 @@ export default function FandomCarousel() {
     return () => clearInterval(id);
   }, [isPaused, SETTINGS.AUTOPLAY_MS]);
 
-  // seamless wrap after motion completes
   useEffect(() => {
     const total = loopItems.length;
     if (index <= 2) {
@@ -109,22 +158,25 @@ export default function FandomCarousel() {
     }
   }, [index, items.length, loopItems.length, isAnimating, SETTINGS.TRANSITION_MS]);
 
-  const goPrev = () => { setIndex((i) => i - 1); setIsAnimating(true); };
-  const goNext = () => { setIndex((i) => i + 1); setIsAnimating(true); };
+  const goPrev = () => {
+    setIndex((i) => i - 1);
+    setIsAnimating(true);
+  };
+  const goNext = () => {
+    setIndex((i) => i + 1);
+    setIsAnimating(true);
+  };
 
-  // wheel → slide (wraps because we use index)
   const onWheel = (e) => {
     const now = Date.now();
     if (now - lastWheelTs.current < wheelCooldownMs) return;
     lastWheelTs.current = now;
 
-    // prefer horizontal delta, fallback to vertical
     const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
     if (delta > 0) goNext();
     if (delta < 0) goPrev();
   };
 
-  // drag/swipe support
   const onPointerDown = (e) => {
     dragging.current = true;
     dragStartX.current = e.clientX ?? e.touches?.[0]?.clientX ?? 0;
@@ -142,11 +194,12 @@ export default function FandomCarousel() {
       goNext();
     }
   };
-  const onPointerUp = () => { dragging.current = false; };
+  const onPointerUp = () => {
+    dragging.current = false;
+  };
 
   const offset = -(index * (cardSize.width + cardSize.gap));
 
-  // IMAGE CARD size
   const imageBoxStyle = SETTINGS.CARD_HEIGHT_PX
     ? { height: SETTINGS.CARD_HEIGHT_PX, borderRadius: SETTINGS.RADIUS_PX }
     : { aspectRatio: SETTINGS.CARD_ASPECT, borderRadius: SETTINGS.RADIUS_PX };
@@ -185,7 +238,10 @@ export default function FandomCarousel() {
           </button>
 
           {/* viewport */}
-          <div ref={containerRef} className="overflow-hidden w-full cursor-grab active:cursor-grabbing">
+          <div
+            ref={containerRef}
+            className="overflow-hidden w-full cursor-grab active:cursor-grabbing"
+          >
             {/* track */}
             <div
               className="flex items-stretch will-change-transform"
@@ -203,33 +259,30 @@ export default function FandomCarousel() {
                   className="shrink-0 bg-transparent"
                   style={{ width: `${cardSize.width}px` }}
                 >
-                  {/* IMAGE TILE */}
-                  <div
-                    className="w-full overflow-hidden bg-white"
-                    style={{
-                      ...imageBoxStyle,
-                      // border: `${SETTINGS.BORDER_PX}px solid black`, // <-- REMOVED
-                      boxShadow: SETTINGS.SHADOW,
-                    }}
+                  <Link
+                    to={`/product/${f.productId}`}
+                    className="block w-full h-full"
                   >
-                    <img
-                      src={f.tshirt}
-                      alt={f.name}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.04]"
-                      style={{ display: "block" }}
-                    />
-                  </div>
+                    <div
+                      className="w-full overflow-hidden bg-white"
+                      style={{
+                        ...imageBoxStyle,
+                        boxShadow: SETTINGS.SHADOW,
+                      }}
+                    >
+                      <img
+                        src={f.tshirt}
+                        alt={f.name}
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.04]"
+                        style={{ display: "block" }}
+                      />
+                    </div>
+                  </Link>
                 </div>
               ))}
             </div>
           </div>
         </div>
-
-        {/* Tweak notes:
-          - Autoplay on/off: set isPaused default or wrap handlers.
-          - Wheel sensitivity: wheelCooldownMs.
-          - Drag swipe threshold: based on card width (0.08).
-        */}
       </div>
     </section>
   );

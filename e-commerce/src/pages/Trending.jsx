@@ -12,27 +12,27 @@ const trendCards = [
   {
     title: "All Things Sheer",
     subtitle: "A Delicate Mess",
-    img: "https://images.unsplash.com/photo-1544745782-d7d4d1f0ecb7?q=80&w=1600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1618375531912-867984bdfd87?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fG1vZGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
   },
   {
     title: "Corset Energy",
     subtitle: "Snatched & Unmatched",
-    img: "https://images.unsplash.com/photo-1520975940460-4c7e3dfe8ab1?q=80&w=1600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1611601322175-ef8ec8c85f01?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bW9kZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
   },
   {
     title: "Satin Sheen",
     subtitle: "Soft but Savage",
-    img: "https://images.unsplash.com/photo-1520974735194-5f77d8de6a3f?q=80&w=1600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1495385794356-15371f348c31?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
   },
   {
     title: "Metallic Mood",
     subtitle: "Future-Ready Shine",
-    img: "https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=1600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1545291730-faff8ca1d4b0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTV8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
   },
   {
     title: "Power Shoulders",
     subtitle: "Runway Authority",
-    img: "https://images.unsplash.com/photo-1548544144-8f9a2c0f0b06?q=80&w=1600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1535530705774-695729778c55?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODB8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
   },
 ];
 

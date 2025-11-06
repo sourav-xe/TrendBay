@@ -13,35 +13,35 @@ import React, { useEffect, useRef, useState } from "react";
 const slides = [
   {
     title: "#Red Fiesta Vibes",
-    img: "https://images.unsplash.com/photo-1539118142631-4b56d2f0b2f3?q=80&w=1600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1550614000-4895a10e1bfd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTU5fHxmYXNoaW9ufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
   },
   {
     title: "#Serve Party",
-    img: "https://images.unsplash.com/photo-1520974722074-5f77d8de6a3f?q=80&w=1600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1606391901318-07003db08d63?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTA3fHxmYXNoaW9ufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
   },
   {
     title: "#Puffy Pants",
-    img: "https://images.unsplash.com/photo-1516822003754-cca485356ecb?q=80&w=1600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQyfHxmYXNoaW9ufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
   },
   {
     title: "#Elegant Casual",
-    img: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1625204614387-6509254d5b02?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzB8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
   },
   {
     title: "#Glimmer Baby",
-    img: "https://images.unsplash.com/photo-1548544144-8f9a2c0f0b06?q=80&w=1600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1609505848912-b7c3b8b4beda?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzZ8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
   },
   {
     title: "#Powdered Rose",
-    img: "https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5?q=80&w=1600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1632573801508-4ede5a46c4d8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTF8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
   },
   {
     title: "#Mint Green Fits",
-    img: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?q=80&w=1600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQyfHxmYXNoaW9ufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
   },
   {
     title: "#Swirl Heat",
-    img: "https://images.unsplash.com/photo-1592878904946-371b0f7d44a0?q=80&w=1600&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1475180098004-ca77a66827be?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTc5fHxmYXNoaW9ufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
   },
 ];
 

@@ -10,6 +10,8 @@ import Wishlist from "./pages/Wishlist";
 import NotFound from "./pages/NotFound";
 import Collection from "./pages/Collection"; // ← add import
 import ProductDetail from "./pages/ProductDetail";
+import DealPage from "./pages/DealPage";
+
 
 // NEW
 import Women from "./pages/Women";
@@ -39,6 +41,8 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/collection/:slug" element={<Collection />} />
           <Route path="/p/:id" element={<ProductDetail />} />
+          <Route path="/deal/:slug" element={<DealPage />} />
+
         </Routes>
       </main>
       <Footer />

@@ -2,37 +2,37 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function HoverSwapShowcase() {
-  // 🔧 EDIT these: label + left / right images + optional link
   const items = [
-     {
+    {
       label: "SNEAKERS",
-      left:  "https://baccabucci.com/cdn/shop/files/hod_1.jpg?v=1759306136&width=360",
+      left: "https://baccabucci.com/cdn/shop/files/hod_1.jpg?v=1759306136&width=360",
       right: "https://baccabucci.com/cdn/shop/files/ppf.jpg?v=1759306169&width=360",
-      to: "/sneakers",
+      // collection slug + category filter
+      to: `/collection/sneakers?cat=${encodeURIComponent("Trousers & Pants")}`,
     },
     {
       label: "ACTIVE SHOES",
-      left:  "https://images.unsplash.com/photo-1565604085891-f0edf1b179f9?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3R1ZHN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+      left: "https://images.unsplash.com/photo-1565604085891-f0edf1b179f9?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3R1ZHN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
       right: "https://images.unsplash.com/photo-1511886929837-354d827aae26?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNwb3J0cyUyMHNob2VzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
-      to: "/active",
+      to: `/collection/active-shoes?cat=${encodeURIComponent("Trousers & Pants")}`,
     },
     {
       label: "ADVENTURE",
-      left:  "https://baccabucci.com/cdn/shop/files/DSC01974-Edit.webp?v=1734506157&width=535",
+      left: "https://baccabucci.com/cdn/shop/files/DSC01974-Edit.webp?v=1734506157&width=535",
       right: "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fFNob2VzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
-      to: "/adventure",
+      to: `/collection/adventure?cat=${encodeURIComponent("Jeans & Jeggings")}`,
     },
     {
       label: "BELTS & WALLETS",
-      left:  "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=1200&auto=format&fit=crop",
+      left: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=1200&auto=format&fit=crop",
       right: "https://images.unsplash.com/photo-1614330316655-51dbca10f5f0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8d2FsbGV0c3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
-      to: "/accessories",
+      to: `/collection/accessories?cat=${encodeURIComponent("Trousers & Pants")}`,
     },
     {
       label: "OVERSIZED T-SHIRTS",
-      left:  "https://images.unsplash.com/photo-1760998209708-5fc89d7983c0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG92ZXJzaXplZCUyMHRzaGlydHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+      left: "https://images.unsplash.com/photo-1760998209708-5fc89d7983c0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG92ZXJzaXplZCUyMHRzaGlydHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
       right: "https://plus.unsplash.com/premium_photo-1690338237128-b32fedb44d55?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8b3ZlcnNpemVkJTIwdHNoaXJ0fGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
-      to: "/oversized",
+      to: `/collection/oversized-tees?cat=${encodeURIComponent("Tshirts")}`,
     },
   ];
 
@@ -65,42 +65,39 @@ export default function HoverSwapShowcase() {
           </LeftWrap>
 
           {/* CENTER TEXT LIST */}
-{/* CENTER TEXT LIST */}
-<ul className="flex flex-col items-center gap-3 md:gap-4">
-  {items.map((it, i) => {
-    const selected = i === active;
-    const LabelTag = it.to ? Link : "button";
-    return (
-      <li key={it.label} className="w-full flex justify-center">
-        <LabelTag
-          to={it.to || undefined}
-          className={`group text-center tracking-wide transition-all duration-300 text-xl md:text-3xl focus:outline-none ${
-            selected ? "scale-105" : "hover:scale-105"
-          }`}
-          onMouseEnter={() => setActive(i)}
-          onFocus={() => setActive(i)}
-          onClick={() => setActive(i)}
-          aria-current={selected ? "true" : "false"}
-        >
-          <span
-            className={`
-              transition-all duration-300
-              ${
-                selected
-                  ? "text-[#FFD700] font-extrabold" // active → golden
-                  : "text-black hover:text-[#FFD700]" // default black, hover → golden
-              }
-            `}
-          >
-            {it.label}
-          </span>
-        </LabelTag>
-      </li>
-    );
-  })}
-</ul>
-
-
+          <ul className="flex flex-col items-center gap-3 md:gap-4">
+            {items.map((it, i) => {
+              const selected = i === active;
+              const LabelTag = it.to ? Link : "button";
+              return (
+                <li key={it.label} className="w-full flex justify-center">
+                  <LabelTag
+                    to={it.to || undefined}
+                    className={`group text-center tracking-wide transition-all duration-300 text-xl md:text-3xl focus:outline-none ${
+                      selected ? "scale-105" : "hover:scale-105"
+                    }`}
+                    onMouseEnter={() => setActive(i)}
+                    onFocus={() => setActive(i)}
+                    onClick={() => setActive(i)}
+                    aria-current={selected ? "true" : "false"}
+                  >
+                    <span
+                      className={`
+                        transition-all duration-300
+                        ${
+                          selected
+                            ? "text-[#FFD700] font-extrabold"
+                            : "text-black hover:text-[#FFD700]"
+                        }
+                      `}
+                    >
+                      {it.label}
+                    </span>
+                  </LabelTag>
+                </li>
+              );
+            })}
+          </ul>
 
           {/* RIGHT IMAGE */}
           <RightWrap

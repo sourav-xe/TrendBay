@@ -1,346 +1,462 @@
-// src/pages/Shop.jsx
-import React, { useEffect, useMemo, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import React, { useMemo, useState, useEffect } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import { getProductsFor } from "../data/products";
 import ProductCard from "../components/ProductCard";
 
-// Simple data for the extra sections (visual only – no filtering logic needed)
-const PRICE_FILTERS = [
-  { id: "p1", label: "Below ₹500" },
-  { id: "p2", label: "₹500-1000" },
-  { id: "p3", label: "₹1001-1500" },
+// Synthetic meta so that all filters always have matching products
+const OCCASIONS = ["CASUAL", "PARTY", "BOLD", "CUTE"];
+const SIZE_VARIANTS = [
+  ["S", "M", "L"],
+  ["M", "L", "XL"],
+  ["L", "XL", "2XL"],
+  ["S", "M"],
+  ["M", "L"],
 ];
 
-const BRAND_FILTERS = [{ id: "b1", label: "Shein (104)" }];
-
-const OCCASION_FILTERS = [
-  { id: "o1", label: "CASUAL (53)" },
-  { id: "o2", label: "PARTY (32)" },
-  { id: "o3", label: "BOLD (5)" },
-  { id: "o4", label: "CUTE (5)" },
-  { id: "o5", label: "Casual (3)" },
+const PRICE_BUCKETS = [
+  { id: "0-500", label: "Below ₹500", min: 0, max: 500 },
+  { id: "500-1000", label: "₹500-1000", min: 500, max: 1000 },
+  { id: "1000-1500", label: "₹1001-1500", min: 1000, max: 1500 },
 ];
 
-const DISCOUNT_FILTERS = [
-  { id: "d1", label: "0-20% (100)" },
-  { id: "d2", label: "21-30% (4)" },
+const DISCOUNT_BUCKETS = [
+  { id: "0-20", label: "0-20% OFF", min: 0, max: 20 },
+  { id: "21-30", label: "21-30% OFF", min: 21, max: 30 },
+  { id: "31-40", label: "31-40% OFF", min: 31, max: 40 },
+  { id: "41-60", label: "41-60% OFF", min: 41, max: 60 },
 ];
 
-const COLOR_FILTERS = [
-  { id: "c1", label: "Beige (3)", dotClass: "bg-yellow-100" },
-  { id: "c2", label: "Black (44)", dotClass: "bg-black" },
-  { id: "c3", label: "Blue (6)", dotClass: "bg-blue-500" },
-  { id: "c4", label: "Brown (4)", dotClass: "bg-amber-800" },
-  { id: "c5", label: "Cream (1)", dotClass: "bg-yellow-50" },
+const SIZE_OPTIONS = ["S", "M", "L", "XL", "2XL"];
+
+const CATEGORY_ORDER = [
+  "Dresses",
+  "Shirts, Tops & Tunics",
+  "Tshirts",
+  "Jeans & Jeggings",
+  "Trousers & Pants",
 ];
 
-const SIZE_FILTERS = [
-  { id: "s1", label: "XS (57)" },
-  { id: "s2", label: "S (66)" },
-  { id: "s3", label: "M (71)" },
-  { id: "s4", label: "L (67)" },
-  { id: "s5", label: "XL (54)" },
-];
-
-// Small accordion component for the left side
-function FilterSection({ title, defaultOpen = false, children }) {
-  const [open, setOpen] = useState(defaultOpen);
-  return (
-    <div className="border-t">
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between py-3 text-sm font-semibold"
-      >
-        <span>{title}</span>
-        <span className="text-xs">{open ? "▲" : "▼"}</span>
-      </button>
-      {open && <div className="pb-3 space-y-2 text-sm">{children}</div>}
-    </div>
-  );
+function titleFromSlug(slug) {
+  if (!slug) return "All Products";
+  return slug.charAt(0).toUpperCase() + slug.slice(1);
 }
 
 export default function Shop() {
-  const { slug } = useParams(); // /collection/:slug (casual, streetwear, etc.)
+  const { slug } = useParams(); // /collection/:slug
   const { search } = useLocation();
 
-  const [query, setQuery] = useState("");
-  const [sort, setSort] = useState("reco");
-  const [gender, setGender] = useState("All"); // "All" | "Women" | "Men"
-  const [selectedCats, setSelectedCats] = useState(new Set());
-  const [showAllCats, setShowAllCats] = useState(false);
+  // "All" is now default gender
+  const [gender, setGender] = useState("All");
 
-  // Products for this collection
-  const products = useMemo(
-    () => getProductsFor(slug || "casual"),
+  // Category set is empty = treat as "All categories"
+  const [selectedCategories, setSelectedCategories] = useState(new Set());
+
+  const [priceBucket, setPriceBucket] = useState(null);
+  const [selectedBrands, setSelectedBrands] = useState(new Set());
+  const [selectedOccasions, setSelectedOccasions] = useState(new Set());
+  const [selectedDiscounts, setSelectedDiscounts] = useState(new Set());
+  const [selectedSizes, setSelectedSizes] = useState(new Set());
+  const [sort, setSort] = useState("reco");
+
+  // base products for this collection
+  const baseProducts = useMemo(
+    () => getProductsFor(slug || "all"),
     [slug]
   );
 
-  // Read ?q= from URL (optional)
+  // Make sure query params can pre-set some filters (e.g. ?cat=Dresses)
   useEffect(() => {
     const params = new URLSearchParams(search);
-    const q = params.get("q");
-    if (q) setQuery(q);
+    const cat = params.get("cat");
+    if (cat && CATEGORY_ORDER.includes(cat)) {
+      setSelectedCategories(new Set([cat])); // this automatically turns "All" OFF
+    }
   }, [search]);
 
-  // Distinct categories from products
-  const allCategories = useMemo(
-    () => Array.from(new Set(products.map((p) => p.category))),
+  // Enrich products with synthetic gender / occasion / sizes / discount%
+  const products = useMemo(() => {
+    return baseProducts.map((p, index) => {
+      const g = index % 2 === 0 ? "Women" : "Men";
+      const occasion = OCCASIONS[index % OCCASIONS.length];
+      const sizes = SIZE_VARIANTS[index % SIZE_VARIANTS.length];
+
+      let discountPercent = p.discountPercent;
+      if (discountPercent == null && p.mrp && p.price) {
+        discountPercent = Math.round(((p.mrp - p.price) / p.mrp) * 100);
+      }
+
+      return {
+        ...p,
+        gender: g,
+        occasion,
+        sizes,
+        discountPercent,
+      };
+    });
+  }, [baseProducts]);
+
+  const allBrands = useMemo(
+    () => Array.from(new Set(products.map((p) => p.brand))).sort(),
     [products]
   );
-  const visibleCategories = showAllCats
-    ? allCategories
-    : allCategories.slice(0, 5);
 
-  // Counts for gender + categories
-  const genderCounts = useMemo(() => {
-    const base = { Women: 0, Men: 0 };
-    products.forEach((p) => {
-      if (p.gender === "Women") base.Women += 1;
-      if (p.gender === "Men") base.Men += 1;
+  const womenCount = useMemo(
+    () => products.filter((p) => p.gender === "Women").length,
+    [products]
+  );
+  const menCount = useMemo(
+    () => products.filter((p) => p.gender === "Men").length,
+    [products]
+  );
+  const totalCount = products.length;
+
+  const categories = useMemo(
+    () =>
+      Array.from(
+        new Set(products.map((p) => p.category).filter(Boolean))
+      ).sort((a, b) => CATEGORY_ORDER.indexOf(a) - CATEGORY_ORDER.indexOf(b)),
+    [products]
+  );
+
+  // Filtering
+  const filtered = useMemo(() => {
+    let list = products.slice();
+
+    list = list.filter((p) => {
+      // gender (skip filter when "All")
+      if (gender !== "All" && gender && p.gender && p.gender !== gender) {
+        return false;
+      }
+
+      // category
+      if (
+        selectedCategories.size && // if size === 0 we treat as "All categories"
+        !selectedCategories.has(p.category)
+      ) {
+        return false;
+      }
+
+      // price
+      if (priceBucket) {
+        const bucket = PRICE_BUCKETS.find((b) => b.id === priceBucket);
+        if (bucket) {
+          if (p.price < bucket.min || p.price > bucket.max) return false;
+        }
+      }
+
+      // brands
+      if (
+        selectedBrands.size &&
+        p.brand &&
+        !selectedBrands.has(p.brand)
+      ) {
+        return false;
+      }
+
+      // occasion (only filter if product has an occasion)
+      if (
+        selectedOccasions.size &&
+        p.occasion &&
+        !selectedOccasions.has(p.occasion)
+      ) {
+        return false;
+      }
+
+      // discount (only filter if we have discountPercent)
+      if (selectedDiscounts.size && p.discountPercent != null) {
+        const bucketId = DISCOUNT_BUCKETS.find(
+          (b) =>
+            p.discountPercent >= b.min && p.discountPercent <= b.max
+        )?.id;
+        if (bucketId && !selectedDiscounts.has(bucketId)) {
+          return false;
+        }
+      }
+
+      // size & fit (only filter if product has sizes)
+      if (selectedSizes.size && Array.isArray(p.sizes)) {
+        const hasSize = p.sizes.some((s) => selectedSizes.has(s));
+        if (!hasSize) return false;
+      }
+
+      return true;
     });
-    return base;
-  }, [products]);
 
-  const categoryCounts = useMemo(() => {
-    const map = {};
-    products.forEach((p) => {
-      map[p.category] = (map[p.category] || 0) + 1;
-    });
-    return map;
-  }, [products]);
-
-  // Toggle category checkboxes
-  const toggleCategory = (name) => {
-    setSelectedCats((prev) => {
-      const next = new Set(prev);
-      if (next.has(name)) next.delete(name);
-      else next.add(name);
-      return next;
-    });
-  };
-
-  // Main filtered + sorted products
-  const data = useMemo(() => {
-    let list = [...products];
-
-    // gender filter
-    if (gender !== "All") {
-      list = list.filter((p) => p.gender === gender);
-    }
-
-    // category filter
-    if (selectedCats.size > 0) {
-      list = list.filter((p) => selectedCats.has(p.category));
-    }
-
-    // text search
-    if (query.trim()) {
-      const q = query.toLowerCase();
-      list = list.filter((p) =>
-        (p.title + p.brand + p.color + (p.tags?.join(",") || ""))
-          .toLowerCase()
-          .includes(q)
+    // sorting
+    if (sort === "low") {
+      list.sort((a, b) => a.price - b.price);
+    } else if (sort === "high") {
+      list.sort((a, b) => b.price - a.price);
+    } else if (sort === "discount") {
+      list.sort(
+        (a, b) => (b.discountPercent || 0) - (a.discountPercent || 0)
       );
     }
 
-    // sort
-    if (sort === "low") list.sort((a, b) => a.price - b.price);
-    if (sort === "high") list.sort((a, b) => b.price - a.price);
-    if (sort === "rating") list.sort((a, b) => b.rating - a.rating);
-
     return list;
-  }, [products, gender, selectedCats, query, sort]);
+  }, [
+    products,
+    gender,
+    selectedCategories,
+    priceBucket,
+    selectedBrands,
+    selectedOccasions,
+    selectedDiscounts,
+    selectedSizes,
+    sort,
+  ]);
 
-  const title =
-    slug && slug.length
-      ? slug.charAt(0).toUpperCase() + slug.slice(1)
-      : "Shop";
+  const toggleInSet = (set, value) => {
+    const next = new Set(set);
+    if (next.has(value)) next.delete(value);
+    else next.add(value);
+    return next;
+  };
 
   return (
-    <section className="container py-8">
-      <h1 className="text-3xl md:text-4xl font-extrabold mb-6">{title}</h1>
+    <section className="max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-10">
+      {/* header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <div>
+          <h1 className="text-3xl md:text-4xl font-bold">
+            {titleFromSlug(slug)}
+          </h1>
+          <p className="text-sm text-gray-500">
+            {filtered.length} items found
+          </p>
+        </div>
 
-      <div className="flex flex-col md:flex-row gap-8">
-        {/* LEFT FILTER COLUMN (scrolls with page, no sticky) */}
-        <aside className="w-full md:w-72 flex-shrink-0">
-          <div className="rounded-3xl border shadow-sm px-4 py-4">
-            <p className="text-sm font-semibold mb-2">Refine By</p>
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-gray-600">Sort by</span>
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+            className="border rounded-lg px-3 py-2 text-sm"
+          >
+            <option value="reco">Recommended</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+            <option value="discount">Best Discount</option>
+          </select>
+        </div>
+      </div>
 
-            {/* Gender */}
-            <FilterSection title="Gender" defaultOpen>
+      {/* layout: filters + grid */}
+      <div className="flex gap-6">
+        {/* LEFT FILTERS */}
+        <aside className="w-64 flex-shrink-0 bg-white border rounded-2xl shadow-sm">
+          <div className="px-5 py-4 border-b">
+            <h2 className="font-semibold text-gray-800">Refine By</h2>
+          </div>
+
+          {/* Gender */}
+          <div className="px-5 py-4 border-b">
+            <h3 className="font-semibold mb-2 text-sm">Gender</h3>
+            <label className="flex items-center gap-2 text-sm mb-1">
+              <input
+                type="radio"
+                name="gender"
+                checked={gender === "All"}
+                onChange={() => setGender("All")}
+              />
+              All ({totalCount})
+            </label>
+            <label className="flex items-center gap-2 text-sm mb-1">
+              <input
+                type="radio"
+                name="gender"
+                checked={gender === "Women"}
+                onChange={() => setGender("Women")}
+              />
+              Women ({womenCount})
+            </label>
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="radio"
+                name="gender"
+                checked={gender === "Men"}
+                onChange={() => setGender("Men")}
+              />
+              Men ({menCount})
+            </label>
+          </div>
+
+          {/* Category */}
+          <details open className="border-b">
+            <summary className="px-5 py-4 cursor-pointer text-sm font-semibold flex justify-between items-center">
+              <span>Category</span>
+            </summary>
+            <div className="px-5 pb-4 space-y-1 text-sm">
+              {/* ALL toggle */}
               <label className="flex items-center gap-2">
                 <input
                   type="checkbox"
-                  className="h-4 w-4"
-                  checked={gender === "Women"}
+                  checked={selectedCategories.size === 0}
                   onChange={() =>
-                    setGender((g) => (g === "Women" ? "All" : "Women"))
+                    setSelectedCategories((prev) =>
+                      prev.size === 0 ? new Set(categories) : new Set()
+                    )
                   }
                 />
-                <span>Women ({genderCounts.Women})</span>
+                All
               </label>
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  className="h-4 w-4"
-                  checked={gender === "Men"}
-                  onChange={() =>
-                    setGender((g) => (g === "Men" ? "All" : "Men"))
-                  }
-                />
-                <span>Men ({genderCounts.Men})</span>
-              </label>
-            </FilterSection>
 
-            {/* Category with MORE button */}
-            <FilterSection title="Category" defaultOpen>
-              {visibleCategories.map((cat) => (
+              {categories.map((cat) => (
                 <label key={cat} className="flex items-center gap-2">
                   <input
                     type="checkbox"
-                    className="h-4 w-4"
-                    checked={selectedCats.has(cat)}
-                    onChange={() => toggleCategory(cat)}
+                    checked={
+                      selectedCategories.size === 0 ||
+                      selectedCategories.has(cat)
+                    }
+                    onChange={() =>
+                      setSelectedCategories((prev) => {
+                        // if we were in "All" mode (empty), start from all cats
+                        const base =
+                          prev.size === 0 ? new Set(categories) : new Set(prev);
+                        if (base.has(cat)) base.delete(cat);
+                        else base.add(cat);
+                        return base;
+                      })
+                    }
                   />
-                  <span className="flex-1">{cat}</span>
-                  <span className="text-xs text-gray-500">
-                    ({categoryCounts[cat] || 0})
-                  </span>
+                  {cat}
                 </label>
               ))}
-              {allCategories.length > 5 && (
-                <button
-                  type="button"
-                  onClick={() => setShowAllCats((v) => !v)}
-                  className="mt-1 text-xs font-semibold text-blue-600"
-                >
-                  {showAllCats ? "LESS" : "MORE"}
-                </button>
-              )}
-            </FilterSection>
+            </div>
+          </details>
 
-            {/* Price */}
-            <FilterSection title="Price">
-              {PRICE_FILTERS.map((p) => (
-                <label key={p.id} className="flex items-center gap-2">
-                  <input type="checkbox" className="h-4 w-4" />
-                  <span>{p.label}</span>
-                </label>
-              ))}
-            </FilterSection>
-
-            {/* Brands */}
-            <FilterSection title="Brands">
-              {BRAND_FILTERS.map((b) => (
+          {/* Price */}
+          <details open className="border-b">
+            <summary className="px-5 py-4 cursor-pointer text-sm font-semibold flex justify-between items-center">
+              <span>Price</span>
+            </summary>
+            <div className="px-5 pb-4 space-y-1 text-sm">
+              {PRICE_BUCKETS.map((b) => (
                 <label key={b.id} className="flex items-center gap-2">
-                  <input type="checkbox" className="h-4 w-4" />
-                  <span>{b.label}</span>
-                </label>
-              ))}
-            </FilterSection>
-
-            {/* Occasion */}
-            <FilterSection title="Occasion">
-              {OCCASION_FILTERS.map((o) => (
-                <label key={o.id} className="flex items-center gap-2">
-                  <input type="checkbox" className="h-4 w-4" />
-                  <span>{o.label}</span>
-                </label>
-              ))}
-            </FilterSection>
-
-            {/* Discount */}
-            <FilterSection title="Discount">
-              {DISCOUNT_FILTERS.map((d) => (
-                <label key={d.id} className="flex items-center gap-2">
-                  <input type="checkbox" className="h-4 w-4" />
-                  <span>{d.label}</span>
-                </label>
-              ))}
-            </FilterSection>
-
-            {/* Colors */}
-            <FilterSection title="Colors">
-              {COLOR_FILTERS.map((c) => (
-                <label key={c.id} className="flex items-center gap-2">
-                  <span
-                    className={`h-3 w-3 rounded-full border ${c.dotClass}`}
+                  <input
+                    type="radio"
+                    name="price"
+                    checked={priceBucket === b.id}
+                    onChange={() =>
+                      setPriceBucket((prev) =>
+                        prev === b.id ? null : b.id
+                      )
+                    }
                   />
-                  <span className="flex-1">{c.label}</span>
+                  {b.label}
                 </label>
               ))}
-            </FilterSection>
+            </div>
+          </details>
 
-            {/* Size & Fit */}
-            <FilterSection title="Size & Fit">
-              {SIZE_FILTERS.map((s) => (
-                <label key={s.id} className="flex items-center gap-2">
-                  <input type="checkbox" className="h-4 w-4" />
-                  <span>{s.label}</span>
+          {/* Brands */}
+          <details className="border-b">
+            <summary className="px-5 py-4 cursor-pointer text-sm font-semibold flex justify-between items-center">
+              <span>Brands</span>
+            </summary>
+            <div className="px-5 pb-4 space-y-1 text-sm max-h-40 overflow-y-auto">
+              {allBrands.map((b) => (
+                <label key={b} className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedBrands.has(b)}
+                    onChange={() =>
+                      setSelectedBrands((prev) => toggleInSet(prev, b))
+                    }
+                  />
+                  {b}
                 </label>
               ))}
-            </FilterSection>
+            </div>
+          </details>
 
-            {/* Tags */}
-            <FilterSection title="Tags">
-              <label className="flex items-center gap-2">
-                <input type="checkbox" className="h-4 w-4" />
-                <span>New</span>
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="checkbox" className="h-4 w-4" />
-                <span>Best Seller</span>
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="checkbox" className="h-4 w-4" />
-                <span>Trending</span>
-              </label>
-            </FilterSection>
+          {/* Occasion */}
+          <details className="border-b">
+            <summary className="px-5 py-4 cursor-pointer text-sm font-semibold flex justify-between items-center">
+              <span>Occasion</span>
+            </summary>
+            <div className="px-5 pb-4 space-y-1 text-sm">
+              {OCCASIONS.map((occ) => (
+                <label key={occ} className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedOccasions.has(occ)}
+                    onChange={() =>
+                      setSelectedOccasions((prev) =>
+                        toggleInSet(prev, occ)
+                      )
+                    }
+                  />
+                  {occ.charAt(0) + occ.slice(1).toLowerCase()}
+                </label>
+              ))}
+            </div>
+          </details>
 
-            {/* NOTE: “More Filters” section intentionally removed as you asked */}
-          </div>
+          {/* Discount */}
+          <details className="border-b">
+            <summary className="px-5 py-4 cursor-pointer text-sm font-semibold flex justify-between items-center">
+              <span>Discount</span>
+            </summary>
+            <div className="px-5 pb-4 space-y-1 text-sm">
+              {DISCOUNT_BUCKETS.map((b) => (
+                <label key={b.id} className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedDiscounts.has(b.id)}
+                    onChange={() =>
+                      setSelectedDiscounts((prev) =>
+                        toggleInSet(prev, b.id)
+                      )
+                    }
+                  />
+                  {b.label}
+                </label>
+              ))}
+            </div>
+          </details>
+
+          {/* Size & Fit */}
+          <details className="">
+            <summary className="px-5 py-4 cursor-pointer text-sm font-semibold flex justify-between items-center">
+              <span>Size &amp; Fit</span>
+            </summary>
+            <div className="px-5 pb-4 space-y-1 text-sm">
+              {SIZE_OPTIONS.map((size) => (
+                <label key={size} className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedSizes.has(size)}
+                    onChange={() =>
+                      setSelectedSizes((prev) =>
+                        toggleInSet(prev, size)
+                      )
+                    }
+                  />
+                  {size}
+                </label>
+              ))}
+            </div>
+          </details>
+
+          {/* Tags section intentionally omitted */}
         </aside>
 
-        {/* RIGHT: PRODUCTS GRID + SEARCH / SORT */}
-        <main className="flex-1">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-            <div className="text-sm text-gray-600">
-              {data.length} items found
-            </div>
-
-            <div className="flex flex-wrap gap-3 items-center">
-              <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search within results"
-                className="w-full md:w-64 border rounded-lg px-3 py-2 text-sm"
-              />
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value)}
-                className="border rounded-lg px-3 py-2 text-sm"
-              >
-                <option value="reco">Recommended</option>
-                <option value="rating">Rating</option>
-                <option value="low">Price: Low to High</option>
-                <option value="high">Price: High to Low</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            {data.map((p) => (
-              <ProductCard key={p.id} p={p} />
-            ))}
-          </div>
-
-          {data.length === 0 && (
-            <p className="text-center text-gray-500 mt-16">
+        {/* RIGHT GRID */}
+        <div className="flex-1">
+          {filtered.length === 0 ? (
+            <p className="text-center text-gray-500 mt-10">
               No products match your filters.
             </p>
+          ) : (
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+              {filtered.map((p) => (
+                <ProductCard key={p.id} p={p} />
+              ))}
+            </div>
           )}
-        </main>
+        </div>
       </div>
     </section>
   );
