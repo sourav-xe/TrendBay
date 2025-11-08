@@ -8,25 +8,25 @@ export default function HoverSwapShowcase() {
       left: "https://baccabucci.com/cdn/shop/files/hod_1.jpg?v=1759306136&width=360",
       right: "https://baccabucci.com/cdn/shop/files/ppf.jpg?v=1759306169&width=360",
       // collection slug + category filter
-      to: `/collection/sneakers?cat=${encodeURIComponent("Trousers & Pants")}`,
+      to: `/collection/sneakers?cat=${encodeURIComponent("Sneakers")}`,
     },
     {
       label: "ACTIVE SHOES",
       left: "https://images.unsplash.com/photo-1565604085891-f0edf1b179f9?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3R1ZHN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
       right: "https://images.unsplash.com/photo-1511886929837-354d827aae26?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNwb3J0cyUyMHNob2VzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
-      to: `/collection/active-shoes?cat=${encodeURIComponent("Trousers & Pants")}`,
+      to: `/collection/active-shoes?cat=${encodeURIComponent("Shoes")}`,
     },
     {
       label: "ADVENTURE",
       left: "https://baccabucci.com/cdn/shop/files/DSC01974-Edit.webp?v=1734506157&width=535",
       right: "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fFNob2VzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
-      to: `/collection/adventure?cat=${encodeURIComponent("Jeans & Jeggings")}`,
+      to: `/collection/adventure?cat=${encodeURIComponent("Caps")}`,
     },
     {
       label: "BELTS & WALLETS",
       left: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=1200&auto=format&fit=crop",
       right: "https://images.unsplash.com/photo-1614330316655-51dbca10f5f0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8d2FsbGV0c3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
-      to: `/collection/accessories?cat=${encodeURIComponent("Trousers & Pants")}`,
+      to: `/collection/accessories?cat=${encodeURIComponent("Accessories")}`,
     },
     {
       label: "OVERSIZED T-SHIRTS",

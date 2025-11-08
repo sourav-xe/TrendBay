@@ -1,9 +1,17 @@
-import React, { useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useMemo, useState, useEffect } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import { getProductsFor } from "../data/products";
 import ProductCard from "../components/ProductCard";
 
 const CATS = [
+  "Shoes",
+  "Hoodies",
+  "Sunglasses",
+  "Accessories",
+  "Sneakers",
+  "Caps",
+  "Graphic Tees",
+  "Joggers",
   "Dresses",
   "Shirts, Tops & Tunics",
   "Tshirts",
@@ -12,17 +20,41 @@ const CATS = [
 ];
 
 export default function Collection() {
-  const { slug } = useParams();                 // e.g. casual, streetwear, formal...
+  const { slug } = useParams();
+  const location = useLocation();
+
+  // ✅ Detect category from URL query
+  const queryParams = new URLSearchParams(location.search);
+ const defaultCategory = queryParams.get("cat");
+
+
   const all = useMemo(() => getProductsFor(slug), [slug]);
 
-  // very light filter state (just like the left rail in your screenshots)
+  // ✅ Initialize filter states
   const [selectedCats, setSelectedCats] = useState([]);
   const [gender, setGender] = useState(false);
 
-  const toggleCat = (cat) =>
+  // ✅ On mount or URL change, preselect from query param
+  useEffect(() => {
+    if (defaultCategory && CATS.includes(defaultCategory)) {
+      setSelectedCats([defaultCategory]);
+    } else {
+      setSelectedCats([]);
+    }
+  }, [defaultCategory]);
+
+  const toggleCat = (cat) => {
     setSelectedCats((prev) =>
-      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
+      prev.includes(cat)
+        ? prev.filter((c) => c !== cat)
+        : [...prev, cat]
     );
+  };
+
+  const clearFilters = () => {
+    setSelectedCats([]);
+    setGender(false);
+  };
 
   const products = all.filter((p) => {
     if (gender && p.gender !== "Women") return false;
@@ -32,7 +64,7 @@ export default function Collection() {
 
   return (
     <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-6">
-      {/* Page heading */}
+      {/* Page Heading */}
       <div className="flex items-baseline justify-between mb-5">
         <h1 className="text-3xl md:text-4xl font-bold capitalize">
           {slug.replace("-", " ")}
@@ -40,11 +72,11 @@ export default function Collection() {
 
         <div className="flex items-center gap-3 text-sm">
           <span className="hidden sm:block text-gray-600">
-            {products.length} Items Found
+            {products.length} items found
           </span>
           <label className="text-gray-600">Sort by</label>
           <select className="border rounded-lg px-3 py-1.5">
-            <option>Relevance</option>
+            <option>Recommended</option>
             <option>Price: Low to High</option>
             <option>Price: High to Low</option>
             <option>Newest First</option>
@@ -56,9 +88,17 @@ export default function Collection() {
         {/* LEFT FILTER RAIL */}
         <aside className="col-span-12 md:col-span-3 lg:col-span-3">
           <div className="sticky top-24 space-y-6">
-            {/* Refine By */}
             <div className="border rounded-2xl overflow-hidden">
-              <div className="px-4 py-3 font-bold border-b">Refine By</div>
+              {/* Refine By */}
+              <div className="px-4 py-3 font-bold border-b flex justify-between items-center">
+                <span>Refine By</span>
+                <button
+                  onClick={clearFilters}
+                  className="text-xs text-blue-600 font-semibold hover:underline"
+                >
+                  Clear Filters
+                </button>
+              </div>
 
               {/* Gender */}
               <div className="px-4 py-3 border-b">
@@ -77,11 +117,14 @@ export default function Collection() {
               {/* Category */}
               <div className="px-4 py-3 border-b">
                 <div className="font-semibold mb-2">Category</div>
-                <div className="space-y-2">
+                <div className="space-y-2 max-h-[350px] overflow-y-auto">
                   {CATS.map((c) => {
                     const count = all.filter((p) => p.category === c).length;
                     return (
-                      <label key={c} className="flex items-center gap-2 text-sm">
+                      <label
+                        key={c}
+                        className="flex items-center gap-2 text-sm cursor-pointer"
+                      >
                         <input
                           type="checkbox"
                           className="accent-black"
@@ -94,29 +137,6 @@ export default function Collection() {
                     );
                   })}
                 </div>
-                <button className="mt-3 text-xs text-blue-600 font-semibold">
-                  MORE
-                </button>
-              </div>
-
-              {/* Price (dummy accordion look) */}
-              <Accordion title="Price" />
-              <Accordion title="Brands" />
-              <Accordion title="Occasion" />
-              <Accordion title="Discount" />
-              <Accordion title="Colors" />
-              <Accordion title="Size & Fit" />
-              <Accordion title="Tags" />
-
-              {/* More Filters footer */}
-              <div className="px-4 py-4">
-                <div className="font-bold">More Filters</div>
-                <div className="text-xs text-gray-600 mb-2">
-                  Please select upto 3 categories to view more filters
-                </div>
-                <button className="px-4 py-2 border rounded-lg text-sm font-semibold">
-                  SELECT CATEGORY
-                </button>
               </div>
             </div>
           </div>
@@ -132,19 +152,5 @@ export default function Collection() {
         </main>
       </div>
     </div>
-  );
-}
-
-function Accordion({ title }) {
-  return (
-    <details className="px-4 py-3 border-b group" open={false}>
-      <summary className="list-none cursor-pointer flex items-center justify-between">
-        <span className="font-semibold">{title}</span>
-        <span className="transition group-open:rotate-180">⌄</span>
-      </summary>
-      <div className="pt-2 text-sm text-gray-500">
-        (You can wire real filter options here later)
-      </div>
-    </details>
   );
 }

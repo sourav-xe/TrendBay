@@ -2,6 +2,8 @@ import React, { useMemo, useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { getProductsFor } from "../data/products";
 import ProductCard from "../components/ProductCard";
+import { fallbackProducts } from "../data/shopFallback";
+
 
 // Synthetic meta so that all filters always have matching products
 const OCCASIONS = ["CASUAL", "PARTY", "BOLD", "CUTE"];
@@ -34,6 +36,14 @@ const CATEGORY_ORDER = [
   "Tshirts",
   "Jeans & Jeggings",
   "Trousers & Pants",
+  "Shoes",
+  "Hoodies",
+  "Sunglasses",
+  "Accessories",
+  "Sneakers",
+  "Caps",
+  "Graphic Tees",
+  "Joggers",
 ];
 
 function titleFromSlug(slug) {
@@ -59,10 +69,7 @@ export default function Shop() {
   const [sort, setSort] = useState("reco");
 
   // base products for this collection
-  const baseProducts = useMemo(
-    () => getProductsFor(slug || "all"),
-    [slug]
-  );
+  const baseProducts = useMemo(() => getProductsFor(slug || "all"), [slug]);
 
   // Make sure query params can pre-set some filters (e.g. ?cat=Dresses)
   useEffect(() => {
@@ -145,11 +152,7 @@ export default function Shop() {
       }
 
       // brands
-      if (
-        selectedBrands.size &&
-        p.brand &&
-        !selectedBrands.has(p.brand)
-      ) {
+      if (selectedBrands.size && p.brand && !selectedBrands.has(p.brand)) {
         return false;
       }
 
@@ -165,8 +168,7 @@ export default function Shop() {
       // discount (only filter if we have discountPercent)
       if (selectedDiscounts.size && p.discountPercent != null) {
         const bucketId = DISCOUNT_BUCKETS.find(
-          (b) =>
-            p.discountPercent >= b.min && p.discountPercent <= b.max
+          (b) => p.discountPercent >= b.min && p.discountPercent <= b.max
         )?.id;
         if (bucketId && !selectedDiscounts.has(bucketId)) {
           return false;
@@ -188,9 +190,59 @@ export default function Shop() {
     } else if (sort === "high") {
       list.sort((a, b) => b.price - a.price);
     } else if (sort === "discount") {
-      list.sort(
-        (a, b) => (b.discountPercent || 0) - (a.discountPercent || 0)
-      );
+      list.sort((a, b) => (b.discountPercent || 0) - (a.discountPercent || 0));
+    }
+
+    // -----------------------------
+    // FALLBACK LOGIC (minimal & safe)
+    // Ensure there is at least one product shown for Women and Men where possible.
+    // We only add tiny cloned fallback items (unique ids) so UI still shows cards.
+    // -----------------------------
+    const ensureGenders = ["Women", "Men"];
+
+    // helper: tries to find a candidate product that matches currently selectedCategories
+    const findCandidate = (forGender) => {
+      // prefer a product already matching the desired categories
+      let candidate =
+        Array.from(products).find((p) => {
+          if (selectedCategories.size && !selectedCategories.has(p.category))
+            return false;
+          // we accept any brand/price — prefer the other gender to clone from
+          return true;
+        }) || products[0];
+
+      // If there's absolutely no products to clone (shouldn't happen), return null
+      return candidate || null;
+    };
+
+    // If gender filter is specific (Men/Women) ensure at least one for that gender
+    if (gender === "Men" || gender === "Women") {
+      if (!list.some((p) => p.gender === gender)) {
+        const cand = findCandidate(gender);
+        if (cand) {
+          list.push({
+            ...cand,
+            id: `${cand.id}-fallback-${gender}`,
+            gender,
+            title: cand.title + " (sample)",
+          });
+        }
+      }
+    } else {
+      // when gender === "All", ensure both genders are represented
+      ensureGenders.forEach((g) => {
+        if (!list.some((p) => p.gender === g)) {
+          const cand = findCandidate(g);
+          if (cand) {
+            list.push({
+              ...cand,
+              id: `${cand.id}-fallback-${g}`,
+              gender: g,
+              title: cand.title + " (sample)",
+            });
+          }
+        }
+      });
     }
 
     return list;
@@ -218,12 +270,8 @@ export default function Shop() {
       {/* header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-3xl md:text-4xl font-bold">
-            {titleFromSlug(slug)}
-          </h1>
-          <p className="text-sm text-gray-500">
-            {filtered.length} items found
-          </p>
+          <h1 className="text-3xl md:text-4xl font-bold">{titleFromSlug(slug)}</h1>
+          <p className="text-sm text-gray-500">{filtered.length} items found</p>
         </div>
 
         <div className="flex items-center gap-3">
@@ -253,30 +301,15 @@ export default function Shop() {
           <div className="px-5 py-4 border-b">
             <h3 className="font-semibold mb-2 text-sm">Gender</h3>
             <label className="flex items-center gap-2 text-sm mb-1">
-              <input
-                type="radio"
-                name="gender"
-                checked={gender === "All"}
-                onChange={() => setGender("All")}
-              />
+              <input type="radio" name="gender" checked={gender === "All"} onChange={() => setGender("All")} />
               All ({totalCount})
             </label>
             <label className="flex items-center gap-2 text-sm mb-1">
-              <input
-                type="radio"
-                name="gender"
-                checked={gender === "Women"}
-                onChange={() => setGender("Women")}
-              />
+              <input type="radio" name="gender" checked={gender === "Women"} onChange={() => setGender("Women")} />
               Women ({womenCount})
             </label>
             <label className="flex items-center gap-2 text-sm">
-              <input
-                type="radio"
-                name="gender"
-                checked={gender === "Men"}
-                onChange={() => setGender("Men")}
-              />
+              <input type="radio" name="gender" checked={gender === "Men"} onChange={() => setGender("Men")} />
               Men ({menCount})
             </label>
           </div>
@@ -305,15 +338,11 @@ export default function Shop() {
                 <label key={cat} className="flex items-center gap-2">
                   <input
                     type="checkbox"
-                    checked={
-                      selectedCategories.size === 0 ||
-                      selectedCategories.has(cat)
-                    }
+                    checked={selectedCategories.size === 0 || selectedCategories.has(cat)}
                     onChange={() =>
                       setSelectedCategories((prev) => {
                         // if we were in "All" mode (empty), start from all cats
-                        const base =
-                          prev.size === 0 ? new Set(categories) : new Set(prev);
+                        const base = prev.size === 0 ? new Set(categories) : new Set(prev);
                         if (base.has(cat)) base.delete(cat);
                         else base.add(cat);
                         return base;
@@ -334,16 +363,7 @@ export default function Shop() {
             <div className="px-5 pb-4 space-y-1 text-sm">
               {PRICE_BUCKETS.map((b) => (
                 <label key={b.id} className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    name="price"
-                    checked={priceBucket === b.id}
-                    onChange={() =>
-                      setPriceBucket((prev) =>
-                        prev === b.id ? null : b.id
-                      )
-                    }
-                  />
+                  <input type="radio" name="price" checked={priceBucket === b.id} onChange={() => setPriceBucket((prev) => (prev === b.id ? null : b.id))} />
                   {b.label}
                 </label>
               ))}
@@ -358,13 +378,7 @@ export default function Shop() {
             <div className="px-5 pb-4 space-y-1 text-sm max-h-40 overflow-y-auto">
               {allBrands.map((b) => (
                 <label key={b} className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={selectedBrands.has(b)}
-                    onChange={() =>
-                      setSelectedBrands((prev) => toggleInSet(prev, b))
-                    }
-                  />
+                  <input type="checkbox" checked={selectedBrands.has(b)} onChange={() => setSelectedBrands((prev) => toggleInSet(prev, b))} />
                   {b}
                 </label>
               ))}
@@ -379,15 +393,7 @@ export default function Shop() {
             <div className="px-5 pb-4 space-y-1 text-sm">
               {OCCASIONS.map((occ) => (
                 <label key={occ} className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={selectedOccasions.has(occ)}
-                    onChange={() =>
-                      setSelectedOccasions((prev) =>
-                        toggleInSet(prev, occ)
-                      )
-                    }
-                  />
+                  <input type="checkbox" checked={selectedOccasions.has(occ)} onChange={() => setSelectedOccasions((prev) => toggleInSet(prev, occ))} />
                   {occ.charAt(0) + occ.slice(1).toLowerCase()}
                 </label>
               ))}
@@ -402,15 +408,7 @@ export default function Shop() {
             <div className="px-5 pb-4 space-y-1 text-sm">
               {DISCOUNT_BUCKETS.map((b) => (
                 <label key={b.id} className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={selectedDiscounts.has(b.id)}
-                    onChange={() =>
-                      setSelectedDiscounts((prev) =>
-                        toggleInSet(prev, b.id)
-                      )
-                    }
-                  />
+                  <input type="checkbox" checked={selectedDiscounts.has(b.id)} onChange={() => setSelectedDiscounts((prev) => toggleInSet(prev, b.id))} />
                   {b.label}
                 </label>
               ))}
@@ -425,15 +423,7 @@ export default function Shop() {
             <div className="px-5 pb-4 space-y-1 text-sm">
               {SIZE_OPTIONS.map((size) => (
                 <label key={size} className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={selectedSizes.has(size)}
-                    onChange={() =>
-                      setSelectedSizes((prev) =>
-                        toggleInSet(prev, size)
-                      )
-                    }
-                  />
+                  <input type="checkbox" checked={selectedSizes.has(size)} onChange={() => setSelectedSizes((prev) => toggleInSet(prev, size))} />
                   {size}
                 </label>
               ))}
@@ -446,14 +436,24 @@ export default function Shop() {
         {/* RIGHT GRID */}
         <div className="flex-1">
           {filtered.length === 0 ? (
-            <p className="text-center text-gray-500 mt-10">
-              No products match your filters.
-            </p>
+            <p className="text-center text-gray-500 mt-10">No products match your filters.</p>
           ) : (
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-              {filtered.map((p) => (
-                <ProductCard key={p.id} p={p} />
-              ))}
+{(() => {
+  // If no filtered products, use fallback
+  const finalList =
+    filtered.length === 0
+      ? fallbackProducts.filter(
+          (p) =>
+            (gender === "All" || p.gender === gender) &&
+            (selectedCategories.size === 0 ||
+              selectedCategories.has(p.category))
+        )
+      : filtered;
+
+  return finalList.map((p) => <ProductCard key={p.id} p={p} />);
+})()}
+
             </div>
           )}
         </div>

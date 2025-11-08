@@ -2,40 +2,44 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 const BANNERS = [
-  { img: "https://baccabucci.com/cdn/shop/files/Gourmet_banner_1_ff3.jpg?v=1761885450", to: "/new-arrivals" },
-  { img: "https://baccabucci.com/cdn/shop/files/web_banner_1.jpg?v=1758347846", to: "/men" },
-  { img: "https://baccabucci.com/cdn/shop/files/PPG_banner_1.png?v=1760417417", to: "/women" },
+  {
+    img: "https://baccabucci.com/cdn/shop/files/Gourmet_banner_1_ff3.jpg?v=1761885450",
+    to: `/collection/powerpuff?cat=${encodeURIComponent("Shoes")}`,
+  },
+  {
+    img: "https://baccabucci.com/cdn/shop/files/web_banner_1.jpg?v=1758347846",
+    to: `/collection/powerpuff?cat=${encodeURIComponent("Shoes")}`,
+  },
+  {
+    img: "https://baccabucci.com/cdn/shop/files/PPG_banner_1.png?v=1760417417",
+    to: `/collection/powerpuff?cat=${encodeURIComponent("Shoes")}`,
+  },
 ];
 
-
-export default function BottomBannerSlider({
-  height = "h-[clamp(220px,30vw,500px)]", // responsive banner height
-  interval = 1000, // auto change every 2.5s
+export default function BannerSlider({
+  height = "h-[clamp(220px,30vw,500px)]",
+  interval = 2500,
 }) {
   const [idx, setIdx] = useState(0);
   const timer = useRef(null);
   const count = BANNERS.length;
 
-  // Auto-play loop
   useEffect(() => {
     timer.current = setInterval(() => {
       setIdx((p) => (p + 1) % count);
     }, interval);
     return () => clearInterval(timer.current);
-  }, []);
+  }, [interval, count]);
 
   return (
     <section className="w-screen overflow-hidden bg-black">
       <div className={`relative w-screen overflow-hidden ${height}`}>
-        {/* Slides (cross-fade) */}
         {BANNERS.map((b, i) => {
           const active = i === idx;
-          const Slide = b.to ? Link : "div";
-          const slideProps = b.to ? { to: b.to } : {};
           return (
-            <Slide
+            <Link
               key={i}
-              {...slideProps}
+              to={b.to}
               className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
                 active ? "opacity-100" : "opacity-0"
               }`}
@@ -43,10 +47,10 @@ export default function BottomBannerSlider({
               <img
                 src={b.img}
                 alt={`banner-${i + 1}`}
-                className="w-screen h-full object-cover object-center"
+                className="w-screen h-full object-cover object-center cursor-pointer"
                 loading="lazy"
               />
-            </Slide>
+            </Link>
           );
         })}
 

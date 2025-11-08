@@ -20,15 +20,34 @@ function reducer(state, action) {
     case "HYDRATE":
       return { ...state, ...action.payload };
 
-    case "ADD_TO_CART": {
-      const exists = state.cart.find((i) => i.id === action.item.id);
-      const cart = exists
-        ? state.cart.map((i) =>
-            i.id === action.item.id ? { ...i, qty: i.qty + 1 } : i
-          )
-        : [...state.cart, { ...action.item, qty: 1 }];
-      return { ...state, cart };
-    }
+case "ADD_TO_CART": {
+  // Each size variant is treated as a unique item
+  const uniqueId = `${action.item.id}-${action.item.selectedSize || "default"}`;
+
+  const existing = state.cart.find((item) => item.uniqueId === uniqueId);
+
+  if (existing) {
+    // if same item+size already exists, just increase qty
+    return {
+      ...state,
+      cart: state.cart.map((item) =>
+        item.uniqueId === uniqueId
+          ? { ...item, qty: item.qty + 1 }
+          : item
+      ),
+    };
+  } else {
+    // add as new cart entry with its unique id
+    return {
+      ...state,
+      cart: [
+        ...state.cart,
+        { ...action.item, qty: 1, uniqueId },
+      ],
+    };
+  }
+}
+
 
     case "INCREMENT_QTY":
       return {

@@ -1,47 +1,59 @@
 import React, { useEffect, useRef, useState } from "react";
+// ✅ Import Link
+import { Link } from "react-router-dom";
 
 /** =============================================
- *  REVEAL CAROUSEL
- *  - 8 images
- *  - Big banner on top
- *  - Thumbnail chips below (show next/coming)
- *  - Slides 1-by-1 automatically
- *  - Click a chip to jump
- *  TailwindCSS-based; no external libs.
- *  ============================================= */
+ * REVEAL CAROUSEL
+ * - 10 images
+ * - Big banner on top
+ * - Thumbnail chips below (show next/coming)
+ * - Slides 1-by-1 automatically
+ * - Click a chip to jump
+ * TailwindCSS-based; no external libs.
+ * ============================================= */
 
+// ✅ NOW 10 SLIDES
 const slides = [
   {
     title: "#Red Fiesta Vibes",
-    img: "https://images.unsplash.com/photo-1550614000-4895a10e1bfd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTU5fHxmYXNoaW9ufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    img: "https://i.pinimg.com/originals/31/9e/b0/319eb02c277f934cb91d0948e9ba1d62.jpg",
   },
   {
     title: "#Serve Party",
-    img: "https://images.unsplash.com/photo-1606391901318-07003db08d63?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTA3fHxmYXNoaW9ufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    img: "https://indiater.com/wp-content/uploads/2019/10/free-modern-fashion-cover-banner-design-psd-template.jpg",
   },
   {
     title: "#Puffy Pants",
-    img: "https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQyfHxmYXNoaW9ufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    img: "https://marketplace.canva.com/EAFGKRRskMs/1/0/1600w/canva-brown-and-beige-minimalist-fashion-banner-lYcbGpUSVGo.jpg",
   },
   {
     title: "#Elegant Casual",
-    img: "https://images.unsplash.com/photo-1625204614387-6509254d5b02?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzB8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    img: "https://thedigital.agency/wp-content/uploads/2019/04/BlackFriday_StoreWF.jpg",
   },
   {
     title: "#Glimmer Baby",
-    img: "https://images.unsplash.com/photo-1609505848912-b7c3b8b4beda?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzZ8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    img: "https://marketplace.canva.com/EAFT4iBtkRY/1/0/800w/canva-beige-brown-minimalist-casual-style-banner-landscape-nCTDUarPDJo.jpg",
   },
   {
     title: "#Powdered Rose",
-    img: "https://images.unsplash.com/photo-1632573801508-4ede5a46c4d8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTF8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    img: "http://graphicgoogle.com/wp-content/uploads/2017/10/Facebook-Fashion-Big-Sale-Banner.jpg",
   },
   {
     title: "#Mint Green Fits",
-    img: "https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQyfHxmYXNoaW9ufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    img: "https://tse1.mm.bing.net/th/id/OIP.B0ysQHUWF0uzpm6XkfptsQHaD3?pid=Api&P=0&h=180",
   },
   {
     title: "#Swirl Heat",
-    img: "https://images.unsplash.com/photo-1475180098004-ca77a66827be?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTc5fHxmYXNoaW9ufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    img: "https://i.pinimg.com/originals/a0/04/7c/a0047c6fbe7355ce655176da3b4cba5e.jpg",
+  },
+  // ✅ ADDED 2 NEW SLIDES
+  {
+    title: "#Neon Pop",
+    img: "https://s3.envato.com/files/211924554/BEE-1741-Mens%20Fashion%20Banners_01_Preview4.jpg",
+  },
+  {
+    title: "#Street Ready",
+    img: "https://i.pinimg.com/originals/ec/6c/5a/ec6c5ab94ee1ee6c3a2a4fb9d56843e2.jpg",
   },
 ];
 
@@ -82,14 +94,24 @@ export default function RevealCarousel() {
     });
   };
 
+  const handleArrowClick = (e, dir) => {
+    // Stop the Link from navigating when clicking the arrow
+    e.preventDefault();
+    e.stopPropagation();
+    go(dir);
+  }
+
   return (
     <section
       className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-white py-6 md:py-8"
       aria-label="Resort Ready Carousel"
     >
       <div className="mx-auto max-w-[1400px] px-4 md:px-6">
-        {/* Big Banner */}
-        <div className="relative rounded-3xl overflow-hidden h-[340px] md:h-[420px]">
+        {/* ✅ Big Banner - WRAPPED IN LINK */}
+        <Link
+          to={`/shop?cat=${encodeURIComponent("Dresses")}`}
+          className="relative block rounded-3xl overflow-hidden h-[400px] md:h-[520px]"
+        >
           {/* cross-fade images */}
           {slides.map((s, i) => (
             <img
@@ -111,7 +133,8 @@ export default function RevealCarousel() {
                 #Resort Ready
               </h3>
               <button
-                onClick={() => go("next")}
+                // ✅ Added onClick handler to prevent link navigation
+                onClick={(e) => handleArrowClick(e, "next")}
                 className="grid place-items-center w-9 h-9 md:w-11 md:h-11 rounded-full bg-white/90 text-gray-900"
                 aria-label="Next"
               >
@@ -126,7 +149,8 @@ export default function RevealCarousel() {
           {/* left/right arrows (desktop) */}
           <div className="hidden md:flex absolute inset-y-0 left-0 items-center pl-3">
             <button
-              onClick={() => go("prev")}
+              // ✅ Added onClick handler to prevent link navigation
+              onClick={(e) => handleArrowClick(e, "prev")}
               className="w-10 h-10 rounded-full bg-white/90 text-gray-900 grid place-items-center shadow"
               aria-label="Previous"
             >
@@ -135,7 +159,8 @@ export default function RevealCarousel() {
           </div>
           <div className="hidden md:flex absolute inset-y-0 right-0 items-center pr-3">
             <button
-              onClick={() => go("next")}
+              // ✅ Added onClick handler to prevent link navigation
+              onClick={(e) => handleArrowClick(e, "next")}
               className="w-10 h-10 rounded-full bg-white/90 text-gray-900 grid place-items-center shadow"
               aria-label="Next"
             >
@@ -155,7 +180,12 @@ export default function RevealCarousel() {
                   <button
                     key={s.title}
                     data-chip={i}
-                    onClick={() => setIndex(i)}
+                    // ✅ Added onClick handler to prevent link navigation
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setIndex(i);
+                    }}
                     className={`relative shrink-0 rounded-2xl p-1 md:p-[6px] transition-all ${
                       active
                         ? "bg-white/90 shadow ring-2 ring-white/90"
@@ -182,7 +212,7 @@ export default function RevealCarousel() {
               })}
             </div>
           </div>
-        </div>
+        </Link> {/* ✅ Link wrapper closes here */}
 
         {/* mobile controls */}
         <div className="flex md:hidden justify-center gap-3 mt-4">

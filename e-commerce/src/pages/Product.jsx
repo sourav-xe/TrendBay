@@ -1,64 +1,113 @@
-// src/data/products.js
-const BRANDS = ["Shein", "Zara", "H&M", "Only", "Roadster"];
-const CATEGORIES = [
-  "Dresses",
-  "Shirts, Tops & Tunics",
-  "Tshirts",
-  "Jeans & Jeggings",
-  "Trousers & Pants",
-];
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { getProductById } from "../data/products";
+import { useStore } from "../store/Store";
 
-const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+export default function Product() {
+  const { id } = useParams();
+  const product = getProductById(id);
+  const { dispatch } = useStore();
+  const [selectedSize, setSelectedSize] = useState("M");
 
-export function makeProductsFor(slug) {
-  return Array.from({ length: 30 }).map((_, i) => {
-    const cat = CATEGORIES[i % CATEGORIES.length];
-    const brand = BRANDS[i % BRANDS.length];
-    const price = [449, 499, 549, 599, 649, 699, 749, 799, 899][i % 9];
-    const mrp = price + [300, 350, 400, 450][i % 4];
+  if (!product) {
+    return (
+      <div className="flex items-center justify-center min-h-screen text-gray-700 text-xl">
+        Product not found.
+      </div>
+    );
+  }
 
-    const img = `https://images.unsplash.com/photo-15${
-      (10 + i) % 99
-    }0${(i * 7) % 9}5${(i * 3) % 9}-?auto=format&fit=crop&w=1000&q=80&sig=${slug}-${i}`;
+  const discount = Math.round(((product.mrp - product.price) / product.mrp) * 100);
 
-    return {
-      id: `${slug}-${i + 1}`,
-      slug,
-      title: `${cap(slug)} ${cat.split("&")[0]} ${i + 1}`,
-      brand,
-      category: cat,
-      gender: "Women",
-      price,
-      mrp,
-      image: img,
-      rating: 4 + ((i % 10) / 10),
-      sizes: ["S", "M", "L", "XL", "2XL"],
-      keyHighlights: {
-        Design: ["Graphic Print", "Solid", "Textured"][(i * 5) % 3],
-        Fit: ["Regular Fit", "Relaxed Fit", "Slim Fit"][i % 3],
-        Neck: ["Round Neck", "V-Neck", "Collared"][i % 3],
-        Material: ["Cotton", "Polyester", "Cotton Blend"][i % 3],
-        Occasion: cap(slug).replace("-", " "),
-        "Sleeve Style": ["Half Sleeve", "Full Sleeve", "Sleeveless"][i % 3],
-      },
-    };
-  });
+  const handleAddToCart = () => {
+    // ✅ Add unique key for product+size combo
+    const sizedItem = { ...product, id: `${product.id}-${selectedSize}`, selectedSize };
+    dispatch({ type: "ADD_TO_CART", item: sizedItem });
+  };
+
+  return (
+    <div className="container py-12">
+      <div className="grid md:grid-cols-2 gap-10 items-start">
+        {/* Product Image */}
+        <div className="bg-gray-50 rounded-2xl flex items-center justify-center p-6">
+          <img
+            src={product.image}
+            alt={product.title}
+            className="w-full h-full max-h-[520px] object-cover rounded-xl"
+          />
+        </div>
+
+        {/* Product Info */}
+        <div className="flex flex-col gap-4">
+          <h1 className="text-3xl font-bold text-gray-900">{product.brand}</h1>
+          <p className="text-lg text-gray-600">{product.title}</p>
+
+          {/* Price */}
+          <div className="flex items-center gap-3">
+            <p className="text-2xl font-semibold text-gray-900">
+              ₹{product.price}
+            </p>
+            <p className="text-gray-500 line-through">₹{product.mrp}</p>
+            <p className="text-green-600 font-medium">{discount}% OFF</p>
+          </div>
+
+          {/* Free Shipping */}
+          <p className="bg-blue-50 text-blue-700 px-3 py-2 rounded-md text-sm">
+            This product is eligible for FREE SHIPPING
+          </p>
+
+          {/* Size Selection */}
+          <div className="mt-2">
+            <h3 className="font-semibold mb-2">Select Size</h3>
+            <div className="flex gap-2">
+              {product.sizes.map((size) => (
+                <button
+                  key={size}
+                  onClick={() => setSelectedSize(size)}
+                  className={`px-4 py-2 border rounded-md ${
+                    selectedSize === size
+                      ? "bg-gray-900 text-white"
+                      : "border-gray-300 text-gray-800 hover:bg-gray-100"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Add to Bag */}
+          <button
+            onClick={handleAddToCart}
+            className="mt-5 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 rounded-lg transition-all w-40"
+          >
+            ADD TO BAG
+          </button>
+
+          {/* Rating */}
+          <div className="flex items-center gap-2 mt-3">
+            <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">
+              ⭐ {product.rating.toFixed(1)} | 500+
+            </span>
+          </div>
+
+          {/* Key Highlights */}
+          <div className="mt-6">
+            <h3 className="text-xl font-bold mb-3">Key Highlights</h3>
+            <div className="grid grid-cols-2 gap-3">
+              {Object.entries(product.keyHighlights).map(([key, value]) => (
+                <div
+                  key={key}
+                  className="bg-gray-50 px-3 py-2 rounded-md flex justify-between text-sm"
+                >
+                  <span className="font-medium text-gray-600">{key}</span>
+                  <span className="text-gray-900 font-semibold">{value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
-
-const cache = new Map();
-export function getProductsFor(slug) {
-  if (!cache.has(slug)) cache.set(slug, makeProductsFor(slug));
-  return cache.get(slug);
-}
-export function getProductById(id) {
-  const slug = id.split("-").slice(0, -1).join("-");
-  return getProductsFor(slug).find((p) => p.id === id);
-}
-
-// 👇 ADD THIS so files that do "import products from '../data/products'" keep working
-const defaultExport = {
-  getProductsFor,
-  getProductById,
-  makeProductsFor,
-};
-export default defaultExport;

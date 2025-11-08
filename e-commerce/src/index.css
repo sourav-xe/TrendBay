@@ -38,3 +38,14 @@
 .gold-strong {
   filter: drop-shadow(0 0 6px rgba(218,165,32,.35));
 }
+
+
+/* Makes the "no-scrollbar" class work everywhere */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

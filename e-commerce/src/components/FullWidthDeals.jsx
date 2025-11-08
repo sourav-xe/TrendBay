@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom"; // ✅ add navigation
 
+// ✅ Added a 'linkCat' to each deal
 const deals = [
   {
     slug: "cargo-culture",
@@ -10,6 +11,7 @@ const deals = [
     titleTop: "THE CARGO",
     titleBottom: "CULTURE",
     align: "left",
+    linkCat: "Trousers & Pants",
   },
   {
     slug: "all-time-favourites",
@@ -18,6 +20,7 @@ const deals = [
     titleTop: "ALL TIME",
     titleBottom: "FAVOURITES",
     align: "left",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     slug: "boho-revival",
@@ -26,6 +29,7 @@ const deals = [
     titleTop: "THE BOHO",
     titleBottom: "REVIVAL",
     align: "right",
+    linkCat: "Dresses",
   },
   {
     slug: "winter-specials",
@@ -34,6 +38,7 @@ const deals = [
     titleTop: "SWEATERS",
     titleBottom: "& JACKETS",
     align: "left",
+    linkCat: "Hoodies",
   },
   {
     slug: "comfy-coords",
@@ -42,6 +47,7 @@ const deals = [
     titleTop: "COMFY",
     titleBottom: "CO-ORDS",
     align: "center",
+    linkCat: "Tshirts",
   },
   {
     slug: "jeans-under-999",
@@ -50,6 +56,7 @@ const deals = [
     titleTop: "JEANS",
     titleBottom: "UNDER ₹999",
     align: "right",
+    linkCat: "Jeans & Jeggings",
   },
 ];
 
@@ -112,7 +119,8 @@ export default function FullWidthDeals() {
                 {pageItems.map((d, j) => (
                   <div
                     key={`${i}-${j}`}
-                    onClick={() => navigate(`/deal/${d.slug}`)} // ✅ navigate to new page
+                    // ✅ UPDATED onClick: Now includes category
+                    onClick={() => navigate(`/deal/${d.slug}?cat=${encodeURIComponent(d.linkCat)}`)}
                     className="relative rounded-3xl overflow-hidden shadow-xl border bg-gray-100 cursor-pointer transition-transform hover:scale-[1.02]"
                   >
                     <img

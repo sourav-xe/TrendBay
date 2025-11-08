@@ -1,38 +1,47 @@
 import React, { useEffect, useRef, useState } from "react";
 import RevealCarousel from "../components/RevealCarousel.jsx";
+// ✅ Import Link
+import { Link } from "react-router-dom";
 
 
 /** =========================================
- *  TREND SPILL — Straight From Fashion Week
- *  (3 cards visible, 4th slightly cut; slides 1-by-1)
- *  Put this section first on your Trending page.
- *  TailwindCSS styles, no external libs.
- *  ========================================= */
+ * TREND SPILL — Straight From Fashion Week
+ * (3 cards visible, 4th slightly cut; slides 1-by-1)
+ * Put this section first on your Trending page.
+ * TailwindCSS styles, no external libs.
+ * ========================================= */
+
+// ✅ Added 'linkCat' to each card
 const trendCards = [
   {
     title: "All Things Sheer",
     subtitle: "A Delicate Mess",
     img: "https://images.unsplash.com/photo-1618375531912-867984bdfd87?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fG1vZGVsc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Dresses",
   },
   {
     title: "Corset Energy",
     subtitle: "Snatched & Unmatched",
     img: "https://images.unsplash.com/photo-1611601322175-ef8ec8c85f01?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bW9kZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     title: "Satin Sheen",
     subtitle: "Soft but Savage",
     img: "https://images.unsplash.com/photo-1495385794356-15371f348c31?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Dresses",
   },
   {
     title: "Metallic Mood",
     subtitle: "Future-Ready Shine",
     img: "https://images.unsplash.com/photo-1545291730-faff8ca1d4b0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTV8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Accessories",
   },
   {
     title: "Power Shoulders",
     subtitle: "Runway Authority",
     img: "https://images.unsplash.com/photo-1535530705774-695729778c55?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODB8fGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
 ];
 
@@ -136,8 +145,10 @@ function TrendSpill() {
           style={{ scrollBehavior: "smooth" }}
         >
           {[...trendCards, ...trendCards].map((card, idx) => (
-            <article
+            // ✅ WRAPPED ARTICLE WITH LINK
+            <Link
               key={`trend-${idx}`}
+              to={`/shop?cat=${encodeURIComponent(card.linkCat)}`}
               className="relative flex-shrink-0 rounded-3xl overflow-hidden shadow-md"
               // width responsive: big cards like screenshot
               style={{
@@ -162,7 +173,7 @@ function TrendSpill() {
                   </div>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
 

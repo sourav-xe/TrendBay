@@ -28,7 +28,7 @@ export default function FeaturedCategories() {
       img: "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHNob2VzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
       group: "men",
       slug: "men-shoes",
-      catFilter: "Trousers & Pants", // closest bottomwear category
+      catFilter: "Shoes", // closest bottomwear category
     },
     {
       title: "Jeans",
@@ -44,7 +44,7 @@ export default function FeaturedCategories() {
       img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyZnVtZXN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
       group: "women",
       slug: "women-perfumes",
-      catFilter: "Dresses",
+      catFilter: "Accessories",
     },
     {
       title: "T-Shirts",
@@ -65,7 +65,7 @@ export default function FeaturedCategories() {
       img: "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d29tZW4lMjBzaG9lfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
       group: "women",
       slug: "women-boots",
-      catFilter: "Trousers & Pants",
+      catFilter: "Shoes",
     },
 
     // --- TRENDING (rest) ---
@@ -74,28 +74,28 @@ export default function FeaturedCategories() {
       img: "https://images.unsplash.com/photo-1584036553516-bf83210aa16c?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c3VuZ2xhc3Nlc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
       group: "trending",
       slug: "trend-sunglasses",
-      catFilter: "Tshirts",
+      catFilter: "Sunglasses",
     },
     {
       title: "Hoddies",
       img: "https://images.unsplash.com/photo-1578470507807-3fc541d5f544?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fG92ZXJzaXplZCUyMGhvb2RpZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
       group: "trending",
       slug: "trend-hoodies",
-      catFilter: "Shirts, Tops & Tunics",
+      catFilter: "Hoodies",
     },
     {
       title: "Oversized Tees",
       img: "https://images.unsplash.com/photo-1760998209708-5fc89d7983c0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG92ZXJzaXplZCUyMHRzaGlydHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
       group: "trending",
       slug: "trend-oversized-tees",
-      catFilter: "Tshirts",
+      catFilter: "Graphic Tees",
     },
     {
       title: "Halloween Special",
       img: "https://images.unsplash.com/photo-1509557965875-b88c97052f0e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aGFsbG93ZWVufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
       group: "trending",
       slug: "trend-halloween",
-      catFilter: "Dresses",
+      catFilter: "Accessories",
     },
   ];
 

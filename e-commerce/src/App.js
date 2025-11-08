@@ -13,6 +13,7 @@ import ProductDetail from "./pages/ProductDetail";
 import DealPage from "./pages/DealPage";
 
 
+
 // NEW
 import Women from "./pages/Women";
 import Men from "./pages/Men";
@@ -42,7 +43,7 @@ export default function App() {
           <Route path="/collection/:slug" element={<Collection />} />
           <Route path="/p/:id" element={<ProductDetail />} />
           <Route path="/deal/:slug" element={<DealPage />} />
-
+         
         </Routes>
       </main>
       <Footer />

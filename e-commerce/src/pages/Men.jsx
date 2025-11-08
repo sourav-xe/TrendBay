@@ -12,6 +12,7 @@ const BOTTOM_PROMO =
 
 /* ===========================
    16 Featured Men Categories
+   ✅ ADDED 'linkCat' to match Shop.jsx categories
    =========================== */
 const featuredCats = [
   {
@@ -19,212 +20,241 @@ const featuredCats = [
     line1: "40-80% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHRzaGlydHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Tshirts",
   },
   {
     title: "Sports Shoes",
     line1: "40-80% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3BvcnRzJTIwc2hvZXN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shoes",
   },
   {
     title: "Shirts",
     line1: "40-80% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hpcnRzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     title: "Jeans",
     line1: "40-80% OFF",
     line2: "Shop Now",
     img: "https://plus.unsplash.com/premium_photo-1689371953070-10782471db47?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDl8fGplYW5zfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Jeans & Jeggings",
   },
   {
     title: "Kurtas & Sets",
     line1: "50-80% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1727835523545-70ee992b5763?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8a3VydGFzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     title: "Trousers",
     line1: "40-80% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dHJvdXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Trousers & Pants",
   },
   {
     title: "Track Pants",
     line1: "UP TO 80% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1711175017307-bbacf7c2ca13?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dHJhY2slMjBwYW50c3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Joggers",
   },
-
   {
     title: "Innerwear",
     line1: "UP TO 70% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1730309047747-c35880bf7b1d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWVucyUyMGlubmVyd2VhcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Accessories",
   },
   {
     title: "Belts & Wallets",
     line1: "40-80% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1614330316655-51dbca10f5f0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8d2FsbGV0c3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Accessories",
   },
   {
     title: "Sunglasses & Frames",
     line1: "30-70% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1556306535-38febf6782e7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHN1bmdsYXNzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Sunglasses",
   },
   {
     title: "Hoodies",
     line1: "MIN. 60% OFF",
     line2: "Shop Now",
     img: "https://plus.unsplash.com/premium_photo-1670588892182-cd1d47097efd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjV8fGhvb2RpZXN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
   {
     title: "Sweatshirts",
     line1: "MIN. 60% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1635892438808-e6dcf5f43b17?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fFN3ZWF0c2hpcnRzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
   {
     title: "Jackets",
     line1: "UP TO 60% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1605908502724-9093a79a1b39?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8amFja2V0c3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
   {
     title: "Blazers",
     line1: "UP TO 60% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1592878904946-b3cd8ae243d0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8QmxhemVyc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     title: "Shorts",
     line1: "UP TO 60% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1612913334025-bedf136f8715?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fFNob3J0c3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Trousers & Pants",
   },
 ];
 
 /* ===========================
-   Horizontal carousel (same)
+   Horizontal carousel
+   ✅ ADDED 'linkCat' to match Shop.jsx categories
    =========================== */
 const carouselItems = [
   {
     title: "Classic Precision",
     sub: "20–50% OFF",
     img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=1200&auto=format&fit=crop",
+    linkCat: "Accessories",
   },
   {
     title: "Timeless Eyewear",
     sub: "MIN. 60% OFF",
     img: "https://images.unsplash.com/photo-1605464765759-55272601601e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8VGltZWxlc3MlMjBFeWV3ZWFyfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Sunglasses",
   },
   {
     title: "Haldi-Ready Kurtas",
     sub: "UNDER ₹799",
     img: "https://images.unsplash.com/photo-1727835523550-18478cacefa2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8S3VydGFzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     title: "Trendy Sherwanis",
     sub: "UP TO 70% OFF",
     img: "https://plus.unsplash.com/premium_photo-1711132425055-1c289c69b950?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjl8fG1hcnJpYWdlfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     title: "Handcrafted Bags",
     sub: "STARTING ₹1399",
     img: "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGJhZ3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Accessories",
   },
   {
     title: "Mehandi Kurtas",
     sub: "UNDER ₹999",
     img: "https://images.unsplash.com/photo-1701365676249-9d7ab5022dec?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGt1cnRhfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     title: "Shackets",
     sub: "STARTING ₹799",
     img: "https://images.unsplash.com/photo-1654881710580-ac11d4c3ecba?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hhY2tldHN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     title: "Regal Kurta Sets",
     sub: "MIN. 60% OFF",
     img: "https://images.unsplash.com/photo-1744551358303-46edae8b374b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8S3VydGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     title: "Denim Layer-Ups",
     sub: "MIN. 60% OFF",
     img: "https://plus.unsplash.com/premium_photo-1730828574105-4c84818751f3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDV8fERlbmltfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Jeans & Jeggings",
   },
   {
     title: "Jodhpuri Blazers",
     sub: "UP TO 60% OFF",
     img: "https://plus.unsplash.com/premium_photo-1695604461666-d0c16bc3381a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fEJsYXplcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
 ];
 
 /* ===========================
    NEW Lookbook Carousel
+   ✅ ADDED 'linkCat' to match Shop.jsx categories
    =========================== */
 const lookbookItems = [
-  
-   {
+  {
     titleTop: "OVERSIZED",
     titleBottom: "SHIRTS",
     img: "https://images.unsplash.com/photo-1694485338927-49564929019d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fG92ZXJ6aWVkJTIwc2hpcnR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     titleTop: "EDGY  PLUS-SIZE",
     titleBottom: "T-SHIRTS",
     img: "https://images.unsplash.com/photo-1739001411231-4fc0f4140259?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG92ZXJ6aWVkJTIwdHNoaXJ0fGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Tshirts",
   },
-   {
+  {
     titleTop: "EFFORTLESS",
     titleBottom: "SWEATSHIRTS",
     img: "https://plus.unsplash.com/premium_photo-1727967291564-aa94bd08cf46?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8U1dFQVRTSElSVFN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
-  
   {
     titleTop: "CHILL-PROOF",
     titleBottom: "WINDCHEATERS",
     img: "https://plus.unsplash.com/premium_photo-1759821701456-b6a2fb786fa4?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8V0lORENIRUFURVJTfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
- 
- 
- 
   {
     titleTop: "KOREAN",
     titleBottom: "PANTS",
     img: "https://images.unsplash.com/photo-1584865288642-42078afe6942?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBhbnRzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Trousers & Pants",
   },
-  
   {
     titleTop: "OVERSIZED",
     titleBottom: "HOODIES",
     img: "https://images.unsplash.com/photo-1704430705406-24fc29dfcccf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fGhvb2RpZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
   {
     titleTop: "COMFY",
     titleBottom: "HOODIES",
     img: "https://images.unsplash.com/photo-1704430705052-dc2361906305?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fGhvb2RpZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
   {
     titleTop: "COZY",
     titleBottom: "Sweaters",
     img: "https://plus.unsplash.com/premium_photo-1669688173849-dea83ce86284?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzN8fFN3ZWF0ZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
-   {
+  {
     titleTop: "PRINTED",
     titleBottom: "JOGGERS",
-    img: "https://images.unsplash.com/photo-1628276148207-1579c992e651?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Sk9HR0VSU3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+    img: "httpsD://images.unsplash.com/photo-1628276148207-1579c992e651?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Sk9HR0VSU3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Joggers",
   },
 ];
 
 export default function Men() {
   const dealsRef = useRef(null);
-  const pausedRef = useRef(false); // ← hover/touch pause flag
+  const pausedRef = useRef(false);
 
-  // Auto-scroll: Dhol-worthy Deals (continuous + hover/touch pause)
+  // Auto-scroll: Dhol-worthy Deals
   useEffect(() => {
     const el = dealsRef.current;
     if (!el) return;
@@ -236,7 +266,7 @@ export default function Men() {
     const loop = () => {
       if (!pausedRef.current) {
         scrollPos += speed;
-        const half = el.scrollWidth / 2; // since we duplicate the list below
+        const half = el.scrollWidth / 2;
         if (scrollPos >= half) scrollPos = 0;
         el.scrollLeft = scrollPos;
       }
@@ -247,10 +277,10 @@ export default function Men() {
     return () => cancelAnimationFrame(rafId);
   }, []);
 
-  // ===== Lookbook: 3 visible + 4th cut, loop seamlessly =====
+  // Lookbook: 3 visible + 4th cut, loop seamlessly
   const [lbIndex, setLbIndex] = useState(0);
-  const [isJump, setIsJump] = useState(false); // disable transition on index reset
-  const LB_STEP = 26.5; // percent shift per card
+  const [isJump, setIsJump] = useState(false);
+  const LB_STEP = 26.5;
 
   // auto-advance
   useEffect(() => {
@@ -260,7 +290,7 @@ export default function Men() {
     return () => clearInterval(id);
   }, []);
 
-  // when we reach the cloned slide, snap back to 0 without anim
+  // when we reach the cloned slide, snap back to 0
   useEffect(() => {
     if (lbIndex === lookbookItems.length) {
       const t = setTimeout(() => {
@@ -269,7 +299,7 @@ export default function Men() {
           setLbIndex(0);
           requestAnimationFrame(() => setIsJump(false));
         });
-      }, 700); // match duration below
+      }, 700);
       return () => clearTimeout(t);
     }
   }, [lbIndex]);
@@ -279,19 +309,24 @@ export default function Men() {
 
   return (
     <div className="bg-white">
-      {/* ===== TOP FULL-WIDTH BANNER ===== */}
+      {/* ===== TOP FULL-WIDTH BANNER (REQUEST 1) ===== */}
       <section
         className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden"
         aria-label="Men Top Banner"
       >
-        <img
-          src={TOP_BANNER}
-          alt="Designs of the Week - Men"
-          className="w-full h-[200px] sm:h-[250px] md:h-[300px] object-cover rounded-b-2xl"
-        />
+        {/* ✅ WRAPPED WITH LINK */}
+        <Link
+          to={`/shop?cat=${encodeURIComponent("Shirts, Tops & Tunics")}`}
+        >
+          <img
+            src={TOP_BANNER}
+            alt="Designs of the Week - Men"
+            className="w-full h-[200px] sm:h-[250px] md:h-[300px] object-cover rounded-b-2xl"
+          />
+        </Link>
       </section>
 
-      {/* ===== CONTINUOUS CAROUSEL (Dhol-Worthy Deals) ===== */}
+      {/* ===== CONTINUOUS CAROUSEL (REQUEST 3) ===== */}
       <section
         className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-cover bg-center py-10"
         style={{ backgroundImage: `url(${BACKGROUND})` }}
@@ -305,8 +340,10 @@ export default function Men() {
           className="flex overflow-x-hidden whitespace-nowrap gap-4 md:gap-6"
         >
           {[...carouselItems, ...carouselItems].map((item, i) => (
-            <div
+            // ✅ WRAPPED WITH LINK
+            <Link
               key={i}
+              to={`/shop?cat=${encodeURIComponent(item.linkCat)}`}
               className="relative flex-shrink-0 overflow-hidden rounded-3xl shadow-lg"
               style={{ width: "270px" }}
             >
@@ -324,24 +361,27 @@ export default function Men() {
                   <div className="text-sm opacity-90">{item.sub}</div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
 
-      {/* ===== SMALLER HEIGHT FULL-WIDTH PROMO IMAGE ===== */}
+      {/* ===== SMALLER HEIGHT FULL-WIDTH PROMO IMAGE (REQUEST 2) ===== */}
       <section
         className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden"
         aria-label="Men Bottom Promo"
       >
-        <img
-          src={BOTTOM_PROMO}
-          alt="Men bottom promo"
-          className="w-full h-[170px] sm:h-[190px] md:h-[220px] object-cover rounded-2xl"
-        />
+        {/* ✅ WRAPPED WITH LINK */}
+        <Link to={`/shop?cat=${encodeURIComponent("Hoodies")}`}>
+          <img
+            src={BOTTOM_PROMO}
+            alt="Men bottom promo"
+            className="w-full h-[170px] sm:h-[190px] md:h-[220px] object-cover rounded-2xl"
+          />
+        </Link>
       </section>
 
-      {/* ===== FEATURED CATEGORIES ===== */}
+      {/* ===== FEATURED CATEGORIES (REQUEST 4) ===== */}
       <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] py-10">
         <div className="mx-auto max-w-[1400px] px-3 md:px-6">
           <h2 className="text-center text-2xl md:text-3xl font-extrabold tracking-tight mb-6">
@@ -352,7 +392,8 @@ export default function Men() {
             {featuredCats.map((c) => (
               <Link
                 key={c.title}
-                to={`/shop?cat=${encodeURIComponent(c.title)}`}
+                // ✅ FIXED LINK to use c.linkCat
+                to={`/shop?cat=${encodeURIComponent(c.linkCat)}`}
                 className="group block rounded-2xl overflow-hidden bg-white shadow hover:shadow-xl transition"
               >
                 <div className="aspect-[4/5] w-full overflow-hidden">
@@ -383,7 +424,7 @@ export default function Men() {
         Latest Collections
       </h2>
 
-      {/* ===== LOOKBOOK: 3 visible + 4th cut, seamless loop ===== */}
+      {/* ===== LOOKBOOK (REQUEST 1) ===== */}
       <section
         className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-white py-8 md:py-10"
         aria-label="Men Lookbook"
@@ -399,8 +440,10 @@ export default function Men() {
             }}
           >
             {loopSlides.map((it, i) => (
-              <div
+              // ✅ WRAPPED WITH LINK
+              <Link
                 key={`look-${i}`}
+                to={`/shop?cat=${encodeURIComponent(it.linkCat)}`}
                 className="relative min-w-[30%] mr-6 rounded-3xl overflow-hidden shadow-lg"
                 style={{ height: "560px" }}
               >
@@ -423,7 +466,7 @@ export default function Men() {
                     {it.titleBottom}
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

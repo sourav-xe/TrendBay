@@ -16,62 +16,74 @@ const PROMO_AFTER_CAROUSEL =
 
 /* ===========================
    Dhol-worthy style carousel cards (women)
+   ✅ ADDED 'linkCat' to match Shop.jsx categories
    =========================== */
 const dealsWomen = [
   {
     title: "Closed Toe Footwear",
     sub: "MIN. 75% OFF",
     img: "https://images.unsplash.com/photo-1670938258821-2956d4ce9c9b?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shoes",
   },
   {
     title: "Boho-Fusion Dresses",
     sub: "STARTING ₹399",
     img: "https://images.unsplash.com/photo-1562137369-1a1a0bc66744?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Dresses",
   },
   {
     title: "Ear Chains",
     sub: "STARTING ₹199",
     img: "https://images.unsplash.com/photo-1699894717166-2ddfd929c996?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Accessories",
   },
   {
     title: "Tailored Trend Jackets",
     sub: "UP TO 40% OFF",
     img: "https://plus.unsplash.com/premium_photo-1760140029865-208524a94bb9?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
   {
     title: "Weightless Foundation",
     sub: "UNDER ₹599",
     img: "https://images.unsplash.com/photo-1557205465-f3762edea6d3?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Accessories",
   },
   {
     title: "Knitted Dresses",
     sub: "STARTING ₹299",
     img: "https://images.unsplash.com/photo-1761979534905-c98ab2e4d786?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Dresses",
   },
   {
     title: "Timeless Tradition",
     sub: "MIN. 80% OFF",
     img: "https://plus.unsplash.com/premium_photo-1726804830059-948c01cda413?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Dresses",
   },
   {
     title: "Texture Play",
     sub: "UP TO 60% OFF",
     img: "https://images.unsplash.com/photo-1753718946012-4e6b2510e249?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
   {
     title: "Denim Dresses",
     sub: "STARTING ₹399",
     img: "https://images.unsplash.com/photo-1601036559620-3a83dfdead09?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Dresses",
   },
   {
     title: "Tank Tops",
     sub: "STARTING ₹199",
     img: "https://images.unsplash.com/photo-1605154734020-7ff44e0f4732?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
 ];
 
 /* ===========================
    Shop by Category – 15 cards (women)
+   ✅ ADDED 'linkCat' to match Shop.jsx categories
    =========================== */
 const featuredWomen = [
   {
@@ -79,141 +91,166 @@ const featuredWomen = [
     line1: "40-80% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1753192103616-53e7e0ef83e6?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Dresses",
   },
   {
     title: "Kurtas & Sets",
     line1: "40-80% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1655288828238-21d86ec971c3?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     title: "Sarees",
     line1: "UP TO 70% OFF",
     line2: "Shop Now",
     img: "https://plus.unsplash.com/premium_photo-1691030256084-c2aeec79fe19?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Dresses",
   },
   {
     title: "Tops & Tees",
     line1: "UP TO 60% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1603217192097-13c306522271?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     title: "Jeans",
     line1: "40-80% OFF",
     line2: "Shop Now",
     img: "https://plus.unsplash.com/premium_photo-1689371953420-b6981e43fa38?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Jeans & Jeggings",
   },
   {
     title: "Footwear",
     line1: "40-80% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shoes",
   },
   {
     title: "Handbags & Bags",
     line1: "40-80% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1751522925876-79bfeae6fbfb?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Accessories",
   },
   {
     title: "Watches",
     line1: "UP TO 70% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1657159810382-226b58af626f?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Accessories",
   },
   {
     title: "Jewellery",
     line1: "UP TO 80% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1631965004544-1762fc696476?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Accessories",
   },
   {
     title: "Beauty & Makeup",
     line1: "UP TO 70% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Accessories",
   },
   {
     title: "Ethnic Wear",
     line1: "40-80% OFF",
     line2: "Shop Now",
     img: "https://plus.unsplash.com/premium_photo-1682096067532-3e89ab323ebf?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Dresses",
   },
   {
     title: "Lingerie & Sleepwear",
     line1: "UP TO 60% OFF",
     line2: "Shop Now",
     img: "https://plus.unsplash.com/premium_photo-1661370004918-38ecf3b50c47?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Accessories",
   },
   {
     title: "Sunglasses",
     line1: "UP TO 70% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1732139637237-a781abbd198c?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Sunglasses",
   },
   {
     title: "Home Furnishings",
     line1: "40-70% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1600210491188-be549f084855?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Accessories",
   },
   {
     title: "Kids Wear",
     line1: "40-70% OFF",
     line2: "Shop Now",
     img: "https://images.unsplash.com/photo-1601925240970-98447486fcdb?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Tshirts",
   },
 ];
 
 /* ===========================
    Latest Collections (lookbook)
+   ✅ ADDED 'linkCat' to match Shop.jsx categories
    =========================== */
 const lookbookWomen = [
   {
     titleTop: "OVERSIZED",
     titleBottom: "SHIRTS",
     img: "https://plus.unsplash.com/premium_photo-1689575248589-3944a725bda3?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     titleTop: "EDGY  PLUS-SIZE",
     titleBottom: "T-SHIRTS",
     img: "https://images.unsplash.com/photo-1760998209708-5fc89d7983c0?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Tshirts",
   },
   {
     titleTop: "EFFORTLESS",
     titleBottom: "SWEATSHIRTS",
     img: "https://images.unsplash.com/photo-1565693413579-8ff3fdc1b03b?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
   {
     titleTop: "CHILL-PROOF",
     titleBottom: "WINDCHEATERS",
     img: "https://images.unsplash.com/photo-1542925581-8db3deffbebb?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
   {
     titleTop: "KOREAN",
     titleBottom: "PANTS",
     img: "https://images.unsplash.com/photo-1636283025607-edd0980a2729?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Trousers & Pants",
   },
   {
     titleTop: "OVERSIZED",
     titleBottom: "HOODIES",
     img: "https://images.unsplash.com/photo-1618333258404-f509733839c4?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
   {
     titleTop: "COMFY",
     titleBottom: "HOODIES",
     img: "https://images.unsplash.com/photo-1622736000556-cbc2ab91f00f?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
   {
     titleTop: "COZY",
     titleBottom: "Sweaters",
     img: "https://plus.unsplash.com/premium_photo-1673757100765-5735ad708306?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Hoodies",
   },
   {
     titleTop: "PRINTED",
     titleBottom: "JOGGERS",
     img: "https://images.unsplash.com/photo-1520183464745-e1bb2567c599?ixlib=rb-4.1.0&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Joggers",
   },
 ];
 
@@ -294,11 +331,15 @@ export default function Women() {
     <div className="bg-white">
       {/* ===== TOP FULL-WIDTH BANNER ===== */}
       <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden">
-        <img
-          src={TOP_BANNER}
-          alt="Fashion Sale – Women"
-          className="w-full h-[240px] sm:h-[320px] md:h-[380px] object-cover rounded-b-2xl shadow-lg"
-        />
+        
+        {/* ✅ FIXED: Link now points to the "Dresses" category */}
+        <Link to={`/shop?cat=${encodeURIComponent("Dresses")}`}>
+          <img
+            src={TOP_BANNER}
+            alt="Fashion Sale – Women"
+            className="w-full h-[240px] sm:h-[320px] md:h-[380px] object-cover rounded-b-2xl shadow-lg"
+          />
+        </Link>
       </section>
 
       {/* ===== DHOL-WORTHY STYLE CAROUSEL (with gap + hover pause) ===== */}
@@ -315,8 +356,10 @@ export default function Women() {
           className="flex overflow-x-hidden whitespace-nowrap gap-4 md:gap-6"
         >
           {[...dealsWomen, ...dealsWomen].map((item, i) => (
-            <div
+            // ✅ WRAPPED WITH LINK
+            <Link
               key={`wd-${i}`}
+              to={`/shop?cat=${encodeURIComponent(item.linkCat)}`}
               className="relative flex-shrink-0 overflow-hidden rounded-3xl shadow-lg"
               style={{ width: "270px" }}
             >
@@ -334,18 +377,21 @@ export default function Women() {
                   <div className="text-sm opacity-90">{item.sub}</div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
 
       {/* ===== PROMO IMAGE AFTER CAROUSEL ===== */}
       <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden">
-        <img
-          src={PROMO_AFTER_CAROUSEL}
-          alt="Latest offer"
-          className="w-full h-[170px] sm:h-[190px] md:h-[220px] object-cover rounded-2xl"
-        />
+        {/* ✅ WRAPPED WITH LINK (to Dresses) */}
+        <Link to={`/shop?cat=${encodeURIComponent("Dresses")}`}>
+          <img
+            src={PROMO_AFTER_CAROUSEL}
+            alt="Latest offer"
+            className="w-full h-[170px] sm:h-[190px] md:h-[220px] object-cover rounded-2xl"
+          />
+        </Link>
       </section>
 
       {/* ===== SHOP BY CATEGORY ===== */}
@@ -356,9 +402,10 @@ export default function Women() {
           </h2>
           <div className="grid grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5">
             {featuredWomen.map((c) => (
+              // ✅ WRAPPED WITH LINK
               <Link
                 key={c.title}
-                to={`/shop?cat=${encodeURIComponent(c.title)}`}
+                to={`/shop?cat=${encodeURIComponent(c.linkCat)}`}
                 className="group block rounded-2xl overflow-hidden bg-white shadow hover:shadow-xl transition"
               >
                 <div className="aspect-[4/5] w-full overflow-hidden">
@@ -396,8 +443,10 @@ export default function Women() {
           className="flex overflow-x-hidden whitespace-nowrap gap-6 px-4 md:px-6"
         >
           {[...lookbookWomen, ...lookbookWomen].map((it, i) => (
-            <div
+            // ✅ WRAPPED WITH LINK
+            <Link
               key={`lookw-${i}`}
+              to={`/shop?cat=${encodeURIComponent(it.linkCat)}`}
               className="relative flex-shrink-0 rounded-3xl overflow-hidden"
               style={{ width: "420px", height: "540px" }}
             >
@@ -416,7 +465,7 @@ export default function Women() {
                   {it.titleBottom}
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Add this import
+import { MdOutlineFavoriteBorder } from "react-icons/md";
 
 export default function ProductCard({ p }) {
   return (

@@ -5,45 +5,50 @@ import { Link } from "react-router-dom";
  * Clickable hero slides. Each slide links to /collection/:slug
  * No external libs. Simple auto-play with pause on hover.
  */
+
+// ✅ Added a 'linkCat' to each slide
 const SLIDES = [
   {
     slug: "casual",
     title: "Casual Wear",
     subtitle: "Everyday comfy fits",
-   img: "https://plus.unsplash.com/premium_photo-1661699817883-29ba5c39373b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fHdvbWVuJTIwc2hvcHBpbmd8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=1200",
-    
+    img: "https://plus.unsplash.com/premium_photo-1661699817883-29ba5c39373b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fHdvbWVuJTIwc2hvcHBpbmd8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=1200",
+    linkCat: "Tshirts",
   },
   {
     slug: "streetwear",
     title: "Streetwear",
     subtitle: "Graphic tees, cargos, oversized",
-   img: "https://plus.unsplash.com/premium_photo-1683121271931-669e09a55414?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHNob3BwaW5nfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=1200",
-   
+    img: "https://plus.unsplash.com/premium_photo-1683121271931-669e09a55414?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHNob3BwaW5nfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=1200",
+    linkCat: "Graphic Tees",
   },
   {
     slug: "formal",
     title: "Formal & Work",
     subtitle: "Tailored, crisp & clean",
     img: "https://plus.unsplash.com/premium_photo-1683121817275-85d1dcf9e4c4?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fHNob3BwaW5nfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=1200",
-    
+    linkCat: "Shirts, Tops & Tunics",
   },
   {
     slug: "athleisure",
     title: "Athleisure",
     subtitle: "Move-ready layers",
     img: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHNob3BwaW5nfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Joggers",
   },
   {
     slug: "party",
     title: "Party Fits",
     subtitle: "Stand-out evening looks",
     img: "https://plus.unsplash.com/premium_photo-1683121266311-04c92a01f5e6?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzN8fHNob3BwaW5nfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600",
+    linkCat: "Dresses",
   },
   {
     slug: "ethnic",
     title: "Ethnic & Festive",
     subtitle: "Kurtas, sarees, lehengas",
     img: "https://media.istockphoto.com/id/1560030949/photo/happy-young-indian-couple-with-shopping-bags-in-hand-looking-camera-concept-of-festival.webp?a=1&b=1&s=612x612&w=0&k=20&c=-2LUyv2tpXxfyWgcGr-9xwkpny9UTPiYSd_-ScQiKHo=",
+    linkCat: "Dresses", // Links to Dresses category
   },
 ];
 
@@ -84,7 +89,8 @@ export default function HeroSlider() {
         {SLIDES.map((s) => (
           <Link
             key={s.slug}
-            to={`/collection/${s.slug}`}
+            // ✅ UPDATED LINK: Now includes the category
+            to={`/collection/${s.slug}?cat=${encodeURIComponent(s.linkCat)}`}
             className="relative min-w-full h-full"
           >
             <img
